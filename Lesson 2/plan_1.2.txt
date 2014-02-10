@@ -1,0 +1,88 @@
+1. Книги для прочтения =
+Начальный уровень
+http://www.ozon.ru/context/detail/id/3881091/ -
+JavaScript. Подробное руководство
+Дэвид Флэнаган
+
+Продвинутый
+http://www.ozon.ru/context/detail/id/6287517/
+JavaScript. Шаблоны
+Стоян Стефанов
+
+2. Циклы for / while / do while
+while(условие) {
+    ..
+}
+
+do {
+
+} while(условие)
+
+for ( var i = 0; i < 10; i++ ) {
+    ...
+}
+
+3. break/continue
+
+4. switch case
+
+5. функции, область видимости переменных в функции, стиль обьявление функции ( code style )
+
+6. рекурсия
+function fact(num) {
+    if(num === 1) return 1;
+
+    return num * fact(num - 1);
+}
+
+7. методы и свойства
+Строка
+"Hello World"[0] / "Hello World".charAr(0);
+alert("Hello World".length);
+alert("Hello World".toUpperCase());
+Массив
+push/pop
+
+8. "use strict";
+
+function sum(a,a) {
+    return a+a;
+}
+
+sum(1,2); //4 // error;
+
+---
+
+function sum(a,b) {
+    c = a + b;
+}
+
+"use strict";
+var f = function() { return arguments.callee; };
+f(); // throws a TypeError
+
+"use strict";
+if (true) {
+
+  function f() { }// !!! Обьявление функций должно быть сверху
+  f();
+}
+
+8. Firebug/Chrome Dev Tools если успеем
+
+------------------
+ДЗ -
+a. написать рекурсивную функцию которая возводит число x в степень y;
+b. написать рекурсивную функцию которая подсчитывает n-е число фибоначчи
+Первые два числа равны 1, затем 2(1+1), затем 3(1+2), 5(2+3) и так далее: 1, 1, 2, 3, 5, 8, 13, 21....
+Пример работы: function fib(n) { /* ваш код */ }
+alert( fib(3) ); // 2
+alert( fib(7) ); // 13
+c. написать функцию которая исчет количество пробелов в строке
+d. написать функцию которая возвращает массив подстрок разделенных пробелом в строке
+
+Во всех функиях использовать строгй режим "use strict";
+------
+К прочтению
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FFunctions_and_function_scope%2FStrict_mode
+

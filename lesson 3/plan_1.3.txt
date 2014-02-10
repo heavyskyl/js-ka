@@ -1,0 +1,140 @@
+Обьекты, ООП, функции конструкторы ccылка this
+
+1.
+
+var name = 'Ololosha',
+    surname = 'Ololoev';
+
+function getName() {
+    return name + surname;
+}
+
+---------
+
+var person1 = {
+    name : 'Ololosha',
+    surname : 'Ololoev',
+    getName : function() {
+        return this.name + ' ' + this.surname;
+    }
+}
+
+Object.prototype === obj.__proto__  //true
+f.__proto__ === Function.prototype  //true
+
+
+person1.__proto__ -> ссылается на прототип Object
+
+
+----------
+
+function Person(name, surname) {
+    //1. var obj = {};
+    //2. передает функции Person obj в качестве ссылки this
+
+    this.name = name;
+    this.surname = surname;
+
+    //3. устанавливает свойство obj.__proto__ = Person.prototype;
+    //4. выполняет return obj;
+}
+
+Person.prototype = {
+
+    getName : function() {
+        return this.name + ' ' + this.surname;
+    }
+
+}
+
+var person1 = new Person('Ololosha', 'Ololoev'),
+    person2 = new Person('Ivan', 'Ivanov');
+
+alert(person1.getName());
+alert(person2.getName());
+
+Как работает оператор new.
+
+
+---------------------------------------------
+
+как передать ссылку this ?
+
+var person1 = {
+    name : 'Ololosha',
+    surname : 'Ololoev',
+    getName : function() {
+        return this.name + ' ' + this.surname;
+    }
+}
+
+person1.getName();
+
+person1.getName.call({
+    name : 'Ivan',
+    surname : 'Ivanov'
+});
+
+
+---------------------------------------
+Именованные функциональные выражения - Named Function Expression
+
+function sayHello() {
+    alert('hello');
+};
+
+-----------
+здесь sayHello, не имя функции, а имя переменной в которой сохранена ссылка на функцию
+
+var sayHello = function() {
+    alert('hello');
+}
+
+-------------------
+у функции может быть имя
+
+var f = function sayHello() {
+    alert(sayHello);
+}
+
+--------------------------
+
+function f(n) {
+  return n ? n*f(n-1) : 1;
+};
+
+
+var g = f;
+f = null;
+
+
+alert( g(5) ); // ошибка при выполнении!
+
+--------------------------
+
+
+var f = function factorial(n) {
+  return n ? n*factorial(n-1) : 1;
+};
+
+var g = f;  // скопировали ссылку на функцию-факториал в g
+f = null;
+
+
+alert( g(5) ); // 120, работает!
+
+
+
+
+
+----------------------------------------------
+дз
+
+1. написать функцию которая возвращает тип входящего параметра ( строка, число, массив, обьект ) используя Object.prototype.toString.call и switch/case оператор
+(посмотреть в интернете что она делает и как она работает)
+2. написать класс Human  у которого есть параметры name, surname, age, sex, языки программирование которыми он владеет ( массив )
+
+в прототипе класса должны быть методы getFullName, getAge, setAge(val), hasKnowledge(languge) ( возвращает true/false - знает ли человек конкреты язык программирования
+
+3. создать 2 екземпляра класса
+   передать в один из методов екземпляра ссылку this ( контекст функции ) используя Function.prototype.call метод
