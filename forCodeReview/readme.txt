@@ -1,1 +1,1 @@
-create you folder here
+Create you folder here. Pattern for folder name is NSurname.
