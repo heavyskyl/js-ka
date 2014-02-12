@@ -75,58 +75,6 @@ person1.getName.call({
     surname : 'Ivanov'
 });
 
-
----------------------------------------
-Именованные функциональные выражения - Named Function Expression
-
-function sayHello() {
-    alert('hello');
-};
-
------------
-здесь sayHello, не имя функции, а имя переменной в которой сохранена ссылка на функцию
-
-var sayHello = function() {
-    alert('hello');
-}
-
--------------------
-у функции может быть имя
-
-var f = function sayHello() {
-    alert(sayHello);
-}
-
---------------------------
-
-function f(n) {
-  return n ? n*f(n-1) : 1;
-};
-
-
-var g = f;
-f = null;
-
-
-alert( g(5) ); // ошибка при выполнении!
-
---------------------------
-
-
-var f = function factorial(n) {
-  return n ? n*factorial(n-1) : 1;
-};
-
-var g = f;  // скопировали ссылку на функцию-факториал в g
-f = null;
-
-
-alert( g(5) ); // 120, работает!
-
-
-
-
-
 ----------------------------------------------
 дз
 

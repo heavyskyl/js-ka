@@ -1,0 +1,155 @@
+Разогрев
+
+var a = 5
+
+
+(function() {
+  alert(a)
+})()
+
+Какой Результат ?
+
+var a = 5
+
+function sum() {
+    alert(a);
+
+    var a = 4;
+}
+
+sum();
+------------------
+
+почему можно
+
+console.log( ({}).toString() );
+console.log( ({}).__proto__.toString() );
+console.log( Object.prototype.toString() );
+
+
+
+[1, 2, 3].toString(); // '1,2,3'
+[1, 2, 3].__proto__.__proto__.toString(); // '[object Array]'
+
+----------------
+
+pre typeof
+
+Примитивы различает, Функция исключение
+
+console.log(
+    typeof undefined, // "undefined"
+    typeof 0, // "number"
+    typeof "", // "string",
+    typeof true, // "boolean",
+    typeof function() {}, // "function"
+);
+
+Обьекты не различает
+console.log(
+    typeof null, //object
+    typeof {}, //object
+    typeof [], //object
+    typeof new Date() //object
+);
+
+Плохо проверять глобальную переменную через if (typeof jQuery === "undefined") {} //долго
+if (jQuery) {}
+
+if ('globalVar' in window) {}
+
+-------
+[] instanceof Array; // true     if (typeof jQuery === "undefined") {}
+[] instanceof Object; // true
+
+person instanceof Person; // true
+
+------------
+
+[[Class]] - скрытое свойство у любого из базовых обьектов в яваскрипт
+Object.prototype.toString.call()
+
+Object.prototype.toString.call(person); // "[object Object]"
+
+к сожалению в яваскрипте нет на 100 процентов надежного метода определения типа
+
+1. Анонимная моментально-вызывающаяся функция, изолированное пространство имен
+
+(function() {})()
+
+!function() {
+    console.log('hello world');
+}()
+
+2. Практический пример использования замыкания
+var i,
+    div;
+
+document.body.innerHTML = '';
+
+for (i = 0; i < 5; i++) {
+
+    div = document.createElement('div');
+    div.innerHTML = 'DIV Number ' + i;
+
+    div.onclick = function(e) {
+
+        alert(i);
+
+    }
+
+    document.body.appendChild(div);
+}
+
+Как можно это обойти ?
+
+
+var i,
+    div;
+
+document.body.innerHTML = '';
+
+for (i = 0; i < 5; i++) (function(i) {
+
+    div = document.createElement('div');
+    div.innerHTML = 'DIV Number ' + i;
+
+    div.onclick = function(e) {
+        alert(i);
+    }
+
+    document.body.appendChild(div);
+})(i)
+
+3. по статье Николаса Закаса
+http://www.nczonline.net/blog/2014/01/21/private-instance-members-with-weakmaps-in-javascript/
+пример с прайват переменными + для чего нужно сокрытие данных
+
+Инкапсуляция — механизм языка программирования, ограничивающий доступ к составляющим объект
+компонентам (методам и свойствам), делает их приватными, то есть доступными только внутри объекта.
+
+ДЗ.
+--------------------
+1. написать функцию которая бы вовращала количество вызовов эьтой функции используя замыкания
+
+2. создать функцию которая циклом создает x обьектов с методом getIndex которая возвращает порядковый номер создания
+и возвращает массив  этих обьектов.
+
+3. (из последнего примера - приватные данные в функции конструкторе)
+
+var Person = (function() {
+
+    var privateData = new DataMap();
+
+    function Person(name) {
+        privateData.set(this, { name: name });
+    }
+
+    Person.prototype.getName = function() {
+        return privateData.get(this).name;
+    };
+
+    return Person;
+}());
+
+создать функцию конструктор DataMap которая бы хранила данные по уникальному ключу.

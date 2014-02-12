@@ -1,0 +1,121 @@
+1. Именованные функциональные выражения - Named Function Expression
+
+function sayHello() {
+    alert('hello');
+};
+
+-----------
+здесь sayHello, не имя функции, а имя переменной в которой сохранена ссылка на функцию
+
+var sayHello = function() {
+    alert('hello');
+}
+
+-------------------
+у функции может быть имя
+
+var f = function sayHello() {
+    alert(sayHello);
+}
+
+--------------------------
+
+function f(n) {
+  return n ? n*f(n-1) : 1;
+};
+
+
+var g = f;
+f = null;
+
+
+alert( g(5) ); // ошибка при выполнении!
+
+--------------------------
+
+
+var f = function factorial(n) {
+  return n ? n*factorial(n-1) : 1;
+};
+
+var g = f;  // скопировали ссылку на функцию-факториал в g
+f = null;
+
+
+alert( g(5) ); // 120, работает!
+
+2. Замыкания Execution context/ Activation Object = LexicalEnvironment (Лексическое Окружение).
+
+function sayHi(name) {
+
+  // ActivationObject = { name: 'Вася', phrase: undefined }
+
+  var phrase = "Привет, " + name;
+  alert(phrase);
+}
+
+sayHi('Вася');
+
+-----------------
+
+var obj = {
+    a : 5,
+    say : function() {
+        alert(this.a);
+    }
+}
+
+alert(obj.a); // 5
+
+
+var a = 1;
+
+function closure() {
+    var a = 5;
+
+    return function() {
+        alert(a); //5
+    }
+}
+
+var c = closure();
+
+c();
+
+alert(c.a); //undefined
+
+Объект переменных внешней функции существует в памяти до тех пор, пока существует хоть одна внутренняя функция,
+ссылающаяся на него через свойство [[Scope]].
+
+var c = undefined;
+
+--------------------------
+[[Scope]] для new Function
+
+var sum = new Function('a,b', ' return a+b; ');
+
+-------------------------
+var a = 1;
+function closure() {
+    var a = 5;
+
+    return new Function('', 'alert(a);');
+}
+
+closure()(); // 1
+
+
+дз
+---------------------------------------------
+к прочтению - http://dmitrysoshnikov.com/ecmascript/javascript-the-core/
+написать функцию Car, которая имеет приватные свойства model, kmStand, price, owner
+и публичные методы геттеры и сеттеры для этих свойств ( getModel, setModel, etc. )
+Так же создайте внутри функции приватные методы kmStandToMiles(), milesStandToKm -для преоброзования пробега в километрах в мили
+и наоборот ( эти методы должны использовать публичные getStand, setStand
+у публичного метода getStand(type), setStand(newVal, type) -  тип километры/мили
+
+
+
+
+
+
