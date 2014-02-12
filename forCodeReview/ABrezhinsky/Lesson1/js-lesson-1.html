@@ -1,0 +1,124 @@
+<html>
+<head>
+	<script type="text/javascript">
+		Homework = {
+			sqr: function(num) { 
+				return num * num; 
+			},
+				
+			max: function(arr) {
+				for(biggest = 0, i = 0; i < arr.length; biggest = arr[i] > biggest ? arr[i] : biggest, i++);
+				return biggest;
+			},
+
+			maxFlex: function() {
+				var args = [].slice.call(arguments, 0);
+				for(biggest = 0, i = 0; i <= args.length; i++) {
+					if(args[i] instanceof Array) {
+						for(j = 0; j <= args[i].length; j++)
+							biggest = args[i][j] > biggest ? args[i][j] : biggest;
+					} 
+					biggest = args[i] > biggest ? args[i] : biggest;
+				}
+				return biggest;
+			},
+
+			maxFlexRec: function() {
+				var args = [].slice.call(arguments, 0), biggest = 0;
+				for(i = 0; i <= args.length; i++) {
+					if(args[i] instanceof Array)
+						args[i] = this.maxFlexRec(args[i]);
+					biggest = args[i] > biggest ? args[i] : biggest;
+				}
+				return biggest;
+			},
+
+			maxStrict: function(arr) {
+				var biggest = 0;
+				for(i = 0; i < arr.length; i++)
+					if('number' == typeof(arr[i]) && arr[i] > biggest)
+						biggest = arr[i];
+				return biggest;
+			},
+
+			isEqual: function(obj1, obj2) {
+				for(e in obj1)
+					if(!obj2.hasOwnProperty(e) || obj1[e].toString() != obj2[e].toString())
+						return false;
+				return true;
+			},
+
+			indexOfEqualSimple: function(obj, arr) {
+				for(i = 0; i < arr.length; i++)
+					if(obj == arr[i])
+						return i;
+			},
+
+			indexOfEqualStrict: function(obj, arr) {
+				for(i = 0; i < arr.length; i++)
+					if(obj === arr[i])
+						return i;
+			},			
+
+			indexOfEqualObj: function(obj, arr) {
+				for(i =0; i < arr.length; i++)
+					if(this.isEqual(obj, arr[i]))
+						return i; 
+			},
+
+			subArr: function(index1, index2, arr) {
+				for(sub = []; index1 <= index2; sub.push(arr[index1]), index1++);
+				return sub;
+			},
+
+			avg: function(num1, num2) { 
+				return (num1 + num2)/2;
+			}
+		};
+
+		TestData = {
+			arrTest: [2, 12, 55, 21, 4, 32],
+			arrTest2: [2, 12, "55", 21],
+			indexOfEqualTest2: [
+				{ 	p1: "test",
+					p2: "test2" },
+				{ 	p3: "test3",
+					p4: "test4",
+					fn: function() { return 42; } },
+				{ 	p5: "test5",
+					p6: "test6" },
+				{	indexOfEqualTest23: function() {
+						return 42;
+					}}					
+			],
+			indexOfEqualTest20: {
+				p1: "test",
+				p2: "test2"
+			},
+			indexOfEqualTest21: { 	
+				p3: "test3",
+				p4: "test4",
+				fn: function() { return 42; } 
+			},
+			indexOfEqualTest23: function() {
+				return 42;
+			}
+		};
+		(function() {
+			var hw = Homework;
+			var td = TestData;
+			var assert = function(a, e) {
+				console.log(assert.caller.name + ': Expected: ' + e + ' and actual is: ' + a);
+			}
+
+			function sqrTest() {
+				assert(hw.sqr(5), 25);
+			}
+
+			sqrTest();
+		})();	
+	</script>
+</head>
+<body>
+</body>
+</html>

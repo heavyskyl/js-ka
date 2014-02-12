@@ -1,0 +1,105 @@
+<html>
+<head>
+	<script type="text/javascript">
+	Homework = {
+		getType: function() {
+			var arg = Object.prototype.toString.call(arguments[0]);
+
+			switch (arg) {
+				case '[object Number]' :
+					return 'number';
+					break;
+				case '[object Array]' :
+					return 'array';
+					break;
+				case '[object Null]' :
+					return 'null';
+					break;
+				default:
+					console.log('Cannot resolve a type');
+			}
+		},
+	};
+
+	function Human(name, surname, age, sex, languages) {
+		"use strict"
+		this.name = name || 'John';
+		this.surname = surname || 'Doe';
+		this.age = age || 'unknown';
+		this.sex = sex || 'unknown';
+		this.languages = languages;
+	};
+
+	Human.prototype.getFullName = function() {
+		return this.name + ' ' + this.surname;
+	};
+
+	Human.prototype.getAge = function(age) {
+		return this.age;
+	};
+
+	Human.prototype.setAge = function(age) {
+		this.age = age;
+	};
+
+	Human.prototype.hasKnowledge = function(language) {
+		return (this.languages.indexOf(language) !== -1);	
+	};
+
+	var testData = {
+
+	};
+
+	Tests = {
+		getTypeTest: function getTypeTest() {
+			assert(Homework.getType(10), 'number', 'Wrong type.')
+		},
+
+		humanTest: function humanTest() {
+			var fe = new Human('Vasya', 'Pupkin', 20, 'male', ['javascript', 'ruby', 'php']),
+				be = new Human(null, null, null, null, ['java', 'groovy', 'scala']);
+
+			assert(fe.getFullName(), 'Vasya Pupkin', 'getFullName failed');
+			assert(fe.getAge(), 20, 'getAge failed');
+			assert(fe.sex, 'male');
+			assert(fe.hasKnowledge('ruby'), true, 'hasKnowledge failed');
+			assert(fe.hasKnowledge('java'), false, 'hasKnowledge failed');
+			assert(be.getFullName(), 'John Doe', 'Default full name getting has been failed');
+			assert(be.getAge(), 'unknown');
+			be.setAge(24);
+			assert(be.getAge(), 24);
+
+			be.setAge.call(fe, 28);
+			assert(fe.getAge(), 28);
+		}
+	};
+
+	function assert(expected, actual, message) {
+		if(expected !== actual) {
+			console.log('Expected : ' + expected + ", but actual is " + actual);
+			throw message || "Test failed";
+		}	
+		
+		console.log(assert.caller.name + ' passed. Expected : ' + expected + " and actual : " + actual);
+	};
+
+	(function() {
+		var tests = Tests
+
+		for(test in tests)
+			tests[test].call(this);
+	})();
+
+	</script>
+</head>
+<body>
+1. написать функцию которая возвращает тип входящего параметра ( строка, число, массив, обьект ) используя Object.prototype.toString.call и switch/case оператор
+(посмотреть в интернете что она делает и как она работает)
+</br>
+2. написать класс Human  у которого есть параметры name, surname, age, sex, языки программирование которыми он владеет ( массив )
+в прототипе класса должны быть методы getFullName, getAge, setAge(val), hasKnowledge(languge) ( возвращает true/false - знает ли человек конкреты язык программирования
+</br>
+3. создать 2 екземпляра класса
+передать в один из методов екземпляра ссылку this ( контекст функции ) используя Function.prototype.call метод
+</body>
+</html>

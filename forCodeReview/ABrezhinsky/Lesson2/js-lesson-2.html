@@ -1,0 +1,109 @@
+<html>
+<head>
+	<script type="text/javascript">
+		Homework = {
+			
+			exp: function(arg1, arg2) {
+				"use strict";
+				if(arg2 <= 0) {
+
+				}
+					return 1;
+				
+				arg2--;
+				
+				return this.exp(arg1, arg2) * arg1;
+			},
+
+			fib: function(arg) {
+				"use strict"
+				if(arg <= 2)
+					return 1;
+				return this.fib(arg - 1) + this.fib(arg - 2);
+			},
+			
+			fib2: function(arg) {
+				"use strict";
+				var r = [1, 1];
+
+				for(var i = 1; i <= arg; i++) {
+					r.push(r[i] + r[i-1]);
+				}
+
+				return r[arg-1];
+			},
+			spacecount: function(arg) {
+				"use strict";
+				var r = 0;
+				for(var i = 0; i <= arg.length; i++)
+					if(arg[i] == ' ')
+						r++;
+				return r;
+			},
+			spacesplitter: function(arg) {
+				"use strict";
+				var start = 0, r = [];
+				for(var i = 0; i <= arg.length; i++) {
+					if(arg[i] ===' ' && i === arg.length) {
+						r.push(arg.slice(start +1, i));
+						start = i;
+					}
+				}
+				return r;
+			}
+		};
+
+		var testData = {
+			spacecounttest: "This is a string with 7 space characters",
+			spacesplittertest: "This string to be splitted into 8 parts",
+		};
+
+		Tests = {
+			expTest: function() {
+				this.report(Homework.exp(3, 3), 27, 'expTest failed');
+			},
+			fibTest: function() {
+				this.report(Homework.fib(3), 2, 'fibTest failed');
+				this.report(Homework.fib(7), 13, 'fibTest failed');
+			},
+			spacecountTest: function() {
+				this.report(Homework.spacecount(TestData.spacecounttest), 7, 'spacecountTest failed');
+			},
+			spacesplitterTest: function() {
+				this.report(Homework.spacesplitter(TestData.spacesplittertest).length, 8, 'spacesplitterTest failed');
+			},
+			fibTimeTest: function() {
+				var start, 
+					t = new Date();
+				start = t.getTime();
+				Homework.fib(40);
+				console.log('fib(40) took ' + (new Date().getTime() - start) / 1000 + ' seconds');
+			},
+			fibTimeTest2: function() {
+				var start, 
+					t = new Date();
+				start = t.getTime();
+				Homework.fib2(1000);
+				console.log('fib2(1000) took ' + (new Date().getTime() - start) / 1000 + ' seconds');
+			}
+		};
+
+		(function() {
+			var tests = Tests;
+			report = function(e, a, m) {
+					if(e != a) {
+						throw m || "Test failed";
+					}
+					console.log("Expected is " + e + " and actual is " + a);
+				};
+			
+				for(test in tests) {
+					tests[test].call(this);
+				}
+	
+		})();
+	</script>
+</head>
+<body>
+</body>
+</html>

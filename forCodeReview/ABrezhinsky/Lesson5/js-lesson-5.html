@@ -1,0 +1,24 @@
+<html>
+<head>
+	<script type="text/javascript">
+	"use strict"
+	var Person = (function() {
+
+	    var privateData = new WeakMap();
+
+	    function Person(name) {
+	        privateData.set(this, { name: name });
+	    }
+
+	    Person.prototype.getName = function() {
+	        return privateData.get(this).name;
+	    };
+
+	    return Person;
+	}());
+	</script>
+</head>
+<body>
+	ДЗ: smth kinda WeakMap(); //Set();
+</body>
+</html>

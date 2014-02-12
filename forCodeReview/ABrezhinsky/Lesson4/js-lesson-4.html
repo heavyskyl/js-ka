@@ -1,0 +1,91 @@
+<html>
+<head>
+	<script type="text/javascript">
+
+	function Car(model, stand, standtype, price, owner) {
+	"use strict"
+		var model = model || 'unknown',
+			price = price || 'unknown',
+			owner = owner || 'unknown',
+			stand = { standtype: standtype || 'unknown', value: stand || 0 } 
+
+			function kmStandToMiles() {
+				return stand.value * 0.621371;
+			};
+			
+			function milesStandToKm() {
+				return stand.value / 0.621371;
+			};
+
+			return {
+				getModel: function() { return model; },
+				
+				setModel: function(newModel) { model = newModel; },
+				
+				setStand: function(standtype, value) { stand.standtype = standtype; stand.value = value; },
+				
+				getStand: function(standtype) {
+					if(typeof(standtype) != 'undefined' && stand.standtype !== standtype) {
+						return standtype === 'km' ? Math.round(milesStandToKm())
+													: Math.round(kmStandToMiles());
+					}
+
+					return stand.value;					
+				}, 
+			};
+	};
+
+
+	(function() {
+		var car1, car2, car3,
+			model1 = "Vaz 2121",
+			newmodel1 = "Mazda",
+			model2 = "BMV",
+			stand1 = 10000,
+			stand2 = 5600,
+			standtype1 = 'km',
+			standtype2 = 'ml',
+			owner1 = "John Doe";
+		
+		car1 = new Car(model1, stand1, standtype1, 1, owner1);
+		car2 = new Car(model2, stand2, standtype2, 10000.00, null);
+		car3 = new Car(null, null, null, null, null);
+
+		function assert(actual, expected, message) {
+			if(expected !== actual) {
+				console.log('Expected : ' + expected + ", but actual is " + actual);
+				throw message || "Test failed";
+			}	
+			console.log(assert.caller.name + ' passed. Expected : ' + expected + " and actual : " + actual);
+		};
+
+		assert(car1.getModel(), model1);
+
+		car1.setModel(newmodel1);
+		assert(car1.getModel(), newmodel1);
+
+		assert(car2.getModel(), model2);
+
+		assert(car3.getModel(), 'unknown');
+
+		assert(car1.getStand(), 10000);
+		assert(car2.getStand(), 5600);
+		assert(car1.getStand('km'), 10000);
+		assert(car1.getStand('ml'), 6214);
+		assert(car2.getStand('km'), 9012);
+		assert(car3.getStand(), 0);
+
+		car3.setStand('km', 1500);
+		assert(car3.getStand(), 1500);
+	})();
+	</script>
+</head>
+<body>
+написать функцию Car, которая имеет приватные свойства model, kmStand, price, owner
+и публичные методы геттеры и сеттеры для этих свойств ( getModel, setModel, etc. )
+Так же создайте внутри функции приватные методы kmStandToMiles(), milesStandToKm -для преоброзования пробега в километрах в мили
+и наоборот ( эти методы должны использовать публичные getStand, setStand
+у публичного метода getStand(type), setStand(newVal, type) -  тип километры/мили</br>
+если кто пропустил урок, темы прошлого урока - Named Function Expression, Execution Context, Closures
+</body>
+</html>
