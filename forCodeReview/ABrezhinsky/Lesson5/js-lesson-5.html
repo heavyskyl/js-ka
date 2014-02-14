@@ -1,10 +1,53 @@
 <html>
 <head>
 	<script type="text/javascript">
+	
+	var counter = (function() {
 	"use strict"
+		var count = 0;
+
+		function inc() {
+			return ++count;
+		}
+
+		return inc;
+	})();
+
+	function ObjectsFactory(arg) {
+	"use strict"
+		var result = [];
+		for(var i = 0; i < arg; i++) {
+			result.push({getIndex: (function(arg){
+										return function() { 
+													return arg; 
+												}; 
+									})(i)
+						})
+		}
+
+		return result;
+	};
+
+	function DataMap() {
+	"use strict"
+		var keys = [],
+			values = [];
+
+			this.set = function(key, value) {
+				if(keys.indexOf(key) === -1) {
+					keys.push(key);
+					values.push(value);
+				}
+			},
+
+			this.get = function(key) {
+				return values[keys.indexOf(key)];
+			}
+	}
+
 	var Person = (function() {
 
-	    var privateData = new WeakMap();
+	    var privateData = new DataMap();
 
 	    function Person(name) {
 	        privateData.set(this, { name: name });
@@ -14,11 +57,49 @@
 	        return privateData.get(this).name;
 	    };
 
-	    return Person;
+    	return Person;
 	}());
+
+	function Testing() {	
+		this.counterTest = function counterTest() {
+			for(var i = 0; i < 5; i++, assert(counter(), i));
+		},
+
+		this.objectFactoryTest = function objectFactoryTest() {
+			var of = new ObjectsFactory(5);
+			
+			for(var i = 0; i < 5; assert(of[i].getIndex(), i), i++);
+		},
+
+		this.personPrivateDataMapTest = function personPrivateDataMapTest() {
+			var p1 = new Person('Someone'),
+				p2 = new Person('Someone else');
+
+				assert(p1.getName(), 'Someone');
+				assert(p2.getName(), 'Someone else');
+		}
+	};
+
+
+	(function() {
+		this.assert = function assert(actual, expected, message) {
+			if(expected !== actual)
+				throw message + 'Expected : ' + expected + ', but actual is ' + actual || "Test failed";
+			console.log(assert.caller.name + ' passed. Expected : ' + expected + " and actual : " + actual);
+		};
+
+		var tests = new Testing();
+		for(var test in tests) {
+			tests[test].call(this);
+		}
+	})();
 	</script>
 </head>
 <body>
-	ДЗ: smth kinda WeakMap(); //Set();
+	1. написать функцию которая бы вовращала количество вызовов эьтой функции используя замыкания</br>
+	2. создать функцию которая циклом создает x обьектов с методом getIndex которая возвращает порядковый номер создания
+	и возвращает массив  этих обьектов.</br>
+	3. (из последнего примера - приватные данные в функции конструкторе)
+	создать функцию конструктор DataMap которая бы хранила данные по уникальному ключу.
 </body>
 </html>
