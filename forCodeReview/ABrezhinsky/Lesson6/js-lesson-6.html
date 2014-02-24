@@ -1,7 +1,6 @@
 <html>
 <head>
 	<script type="text/javascript">
-
 	var counter = (function() { //for debugging
 		var count = 0;
 
@@ -12,7 +11,7 @@
 		return inc;
 	})();
  	
- 	function callTimeout(interval, upto, step) {
+ 	function incTimeout(interval, upto, step) {
  		var interval = interval || 1;
  		
  		if(interval == 1) console.log('Start at ' + new Date().getSeconds()); //for debug reason
