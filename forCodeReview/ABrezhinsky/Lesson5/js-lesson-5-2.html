@@ -1,0 +1,28 @@
+<html>
+<head>
+	<script type="text/javascript">
+	function DoSomeTrick(start, end, step) {
+		var funcn;
+		
+		function makeStep(arg, fn) {
+			if(arg < end) {
+				func(arg);
+				makeStep(arg + step);
+			}
+		};
+
+		return function trick(fn) {
+			func = fn;
+			makeStep(start);	
+		}
+	};
+	</script>
+</head>
+<body>
+конечный результат -
+go(1, 9, 3)(function(x) { console.log(x) })
+1
+4
+7
+</body>
+</html>

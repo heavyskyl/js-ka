@@ -1,0 +1,71 @@
+1. 
+var getCalledCount = (function() {
+
+    var count = 0;
+
+    return function() {
+        count++; 
+	return count;
+    } 
+}());
+
+2.
+var Camel = (function() {
+    var index;
+
+    function Camel(index_) {
+        index = index_;
+    }
+
+    Camel.prototype.getIndex = function() {
+        return index;
+    };
+    return Camel;
+
+}());
+
+var createCamels = function(numberOfCamels) {
+	var camels = [];
+	for(var i = 0; i < numberOfCamels; i++) {
+		camels.push(new Camel(i));	
+	}
+	return camels;
+}
+
+console.log(createCamels(10));
+
+
+3.
+var DataMap = (function() {
+	var keys = [];
+	var values = [];
+
+	function DataMap() {
+			
+	}	
+
+	DataMap.prototype.set(key, value) {
+		var index = keys.indexOf(key);
+		if(index) {
+			var oldProps = values[index];
+			for(var k in value) oldProps[k]=value[k];	
+		} else {
+			keys.push(key);
+			index = keys.indexOf(key);
+			values[index] = value;
+		}		
+	}
+	
+	DataMap.prototype.get(key) {
+		return values[keys.indexOf(key)];
+	}
+
+
+	return DataMap;
+
+})();
+
+
+
+
+

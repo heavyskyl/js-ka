@@ -1,0 +1,55 @@
+<html>
+<head>
+	<script type="text/javascript">
+	var counter = (function() { //for debugging
+		var count = 0;
+
+		function inc() {
+			return ++count;
+		}
+
+		return inc;
+	})();
+ 	
+ 	function incTimeout(interval, upto, step) {
+ 		var interval = interval || 1;
+ 		
+ 		if(interval == 1) console.log('Start at ' + new Date().getSeconds()); //for debug reason
+ 			setTimeout(function() {
+ 				console.log('call number ' + counter() + ' started at ' + new Date().getSeconds()); //for debug reason
+ 				if(interval < upto) {
+ 					interval += step;
+ 					callTimeout(interval, upto, step);
+ 				}
+ 			}, interval * 1000);
+	};
+
+	function randomWithInterval() {
+ 		setInterval(function() {
+ 			return Math.round(Math.random() * 15 + 5);
+ 		}, 100);
+ 	};
+
+ 	function callTimeout(fn, interval) {	//kinda custom setTimeout
+		var t1 = new Date().getTime(),		//10 sec test ~30 CPU :(
+ 			t2 = t1,
+			currentInterval = 0;
+
+ 		wait = function(sec) {
+ 			while(t2 - t1 < interval) {
+ 				t2 = new Date().getTime();
+ 			} 
+ 		};
+
+		call = function() {
+			wait(interval);
+			fn();
+ 		};
+
+ 		call();
+ 	};
+	</script>
+</head>
+<body>
+</body>
+</html>
