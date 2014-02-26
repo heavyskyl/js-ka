@@ -11,14 +11,13 @@ var getCalledCount = (function() {
 
 2.
 var Camel = (function() {
-    var index;
 
-    function Camel(index_) {
-        index = index_;
+    function Camel(i) {
+        this.index = i;
     }
 
     Camel.prototype.getIndex = function() {
-        return index;
+        return this.index;
     };
     return Camel;
 
@@ -43,10 +42,20 @@ var DataMap = (function() {
 	function DataMap() {
 			
 	}	
-
-	DataMap.prototype.set(key, value) {
-		var index = keys.indexOf(key);
-		if(index) {
+	
+	var findIndex = function(array, object) {
+		for(var i = 0; i < array.length; i++) {
+			for(var k in object) {
+            			if (array[i][k] === object[k]) {
+		      			return i;				
+				}
+		  	}
+       		}
+   	}
+	
+	DataMap.prototype.set = function(key, value) {
+		var index = findIndex(keys,key);
+		if(index >= 0) {
 			var oldProps = values[index];
 			for(var k in value) oldProps[k]=value[k];	
 		} else {
@@ -56,16 +65,31 @@ var DataMap = (function() {
 		}		
 	}
 	
-	DataMap.prototype.get(key) {
-		return values[keys.indexOf(key)];
+	DataMap.prototype.get = function(key) {
+		return values[findIndex(keys, key)];
 	}
-
 
 	return DataMap;
 
 })();
 
+dm.set({"id" : 1}, {"name" : "Tymur"});
+dm.set({"id" : 1}, {"age" : "23"});
+dm.get({"id" : 1});
+Object {name: "Tymur", age: "23"}
 
+dm.get({"id" : 1});
+Object {name: "Tymur", age: "23"}
 
+dm.set({"id" : 1}, {"languages" : ["JAVA", "JavaScript"]});
+
+dm.get({"id" : 1});
+Object {name: "Tymur", age: "23", languages: Array[2]}
+
+dm.get({"id" : 1}).name;
+"Tymur"
+
+dm.get({"id" : 1}).languages;
+["JAVA", "JavaScript"]
 
 

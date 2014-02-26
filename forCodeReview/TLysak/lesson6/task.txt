@@ -1,0 +1,22 @@
+1.var testConnection = function(numberToTries, currentLap) {
+	var connection = (Math.random() > 0.85) ? true : false; 
+	console.log('connection is ' + connection);
+	if(!connection && numberToTries > 0) {
+		if(!currentLap) {
+			currentLap = 1;
+		}
+		var interval = 1000 * currentLap;
+		console.log('number to tries left = ' + (numberToTries - 1));
+		console.log('reconnecting in ' + interval + ' mSec.');
+		setTimeout(function(){testConnection(--numberToTries, ++currentLap)}, interval);
+	}	
+}
+
+2.var poling = function() {
+	var getRandom = function(min, max) {
+		return Math.floor(Math.random() * (max - min) + min);
+	};
+	setInterval(function(){
+		console.log(getRandom(5,20));
+	}, 100);
+	}
