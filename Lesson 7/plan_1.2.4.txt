@@ -1,3 +1,23 @@
 1. Повторение свойста __proto__ и prototype
 
 2. Наследование по презентации
+
+function Animal() {
+    this.food = 'SomeFood';
+}
+
+Animal.prototype = {
+    eat : function() {
+        alert(this.key);
+    }
+}
+
+function Monkey() {
+    this.food = 'banana';
+}
+
+inherit(Monkey, Animal);
+
+var monkey = new Monkey();
+
+monkey.eat(); // banana
