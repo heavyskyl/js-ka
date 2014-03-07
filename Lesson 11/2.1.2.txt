@@ -1,0 +1,109 @@
+1. Перечислите функции которые получают элемент на станице,
+   Как можно у тега изменить его содержимое ?
+
+Метод elem.insertAdjacentHTML(where, html) позволяет вставлять HTML-текст в произвольное место документа.
+
+2. Удаление узлов
+
+parentElem.removeChild(elem)
+    Удаляет elem из списка детей parentElem.
+parentElem.replaceChild(elem, currentElem)
+    Среди детей parentElem заменяет currentElem на elem.
+
+elem.cloneNode(deep) - клонирование ноды, если deep = true то с потомками
+
+3. Пример
+
+.message {
+  width: 300px;
+  height: 130px;
+  border: 1px solid gray;
+  text-align: center;
+}
+.message h1 {
+  color: red;
+  background: azure;
+  font-size: 16px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+}
+.message .content {
+  height: 50px;
+  padding: 10px;
+}
+
+function showMessage(title, body) {
+  var container = document.createElement('div');
+
+  container.innerHTML = '<div class="message"> \
+    <h1>' + title + '</h1> \
+    <div class="content">' + body + '</div> \
+    <input class="ok" type="button" value="OK"> \
+  </div>';
+
+  document.body.appendChild(container);
+}
+
+showMessage('Hello', 'This is the test message');
+
+Тоже самое собирая дом узлы яваскриптом.
+Рассказать про фрагмент
+
+var fragment = document.createDocumentFragment();
+fragment.appendChild(node);
+
+document.body.appendChild(fragment);
+
+когда DocumentFragment вставляется в DOM — то он исчезает, а вместо него вставляются его дети.
+Это свойство является уникальной особенностью DocumentFragment.
+
+Все важно вставлять за один раз.
+
+4. Работа со стилями
+
+style = window.getComputedStyle ? getComputedStyle(elem, '') : elem.currentStyle; - получить
+
+document.body.style.width = "100px"; - установить
+document.body.style.height = "200px";
+
+5. Скролл
+
+document.body.scrollHeight - высота всего скролла
+document.body.scrollTop - текущее состояние скролла
+
+document.getElementById('div').scrollTop;
+
+6. картинка offsetWidth
+
+elem.offsetWidth
+elem.offsetHeight
+
+7. Картинка clientLeft
+
+elem.clientLeft
+elem.clientTop
+
+10. Размеры и прокрутка для страницы
+
+Ширина/высота видимой части окна
+document.documentElement.clientHeight
+document.documentElement.clientWidth
+
+c учетом скролла
+document.documentElement.scrollHeight
+document.documentElement.clientHeight
+
+11. Изменение прокрутки: scrollTo, scrollBy, scrollIntoView
+
+Метод scrollBy(x,y) прокручивает страницу относительно текущих координат.
+Например, кнопка ниже прокрутит страницу на 10px вниз:
+
+Метод scrollTo(pageX,pageY) прокручивает страницу к указанным координатам относительно документа. Он эквивалентен установке свойств scrollLeft/scrollTop.
+Чтобы прокрутить в начало документа, достаточно указать координаты (0,0):
+
+Метод elem.scrollIntoView(top) вызывается на элементе и прокручивает страницу так, чтобы элемент оказался вверху, если параметр top равен true,
+и внизу, если top равен false. Причем, если параметр top не указан, то он считается равным true.
+
+13. Dom шпаргалка
+http://learn.javascript.ru/dom-cheatsheet
