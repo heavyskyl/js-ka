@@ -1,0 +1,56 @@
+<html>
+<head>
+<script type="text/javascript">
+	"use strict"
+	function detect() {
+		var ua = navigator.userAgent, uaParsed = ua
+				.match(/(Chrome|Firefox|MSIE|Opera).(\d+)/), 
+			
+			detected = {
+				name : uaParsed[1],
+				version : uaParsed[2]
+			};
+
+		if (/(WOW32|WOW64|Win32|Win64)/.test(ua)) {
+			detected.platform = "windows";
+		} else if (/(linux)/i.test(ua)) {
+			detected.platform = "linux";
+		}
+
+		return detected;
+	};
+
+	function toogleClass(className, element) {
+		var classes = element.className.split(' ');
+
+		if (classes.indexOf(className) === -1)
+			classes.push(className);
+		else
+			while (classes.indexOf(className) !== -1)
+				classes.splice(classes.indexOf(className), 1);
+
+		element.className = classes.join(' ').trim();
+	};
+
+	window.onload = function() {
+		var ua = detect();
+		ua.resolution = screen.height + '_' + screen.width;
+
+		for ( var it in ua) {
+			toogleClass(ua[it].toLowerCase(), document.documentElement);
+		}
+	};
+</script>
+</head>
+<body>
+	<div id="homework">
+		1. написать функцию которая определяет версию браузера и версию,
+		версию операционной системы</br> 2. написать функции -
+		addCssClass(className, element) и removeCssClass(className, element);</br>
+		3. используя предидущие функции написать еще одну - которая будет
+		добавлять цсс класс</br> ( например class="ie ie9 windows" или "firefox
+		linux linux_x64_86") для html тега при загрузке страницы,</br> класс с
+		разрешением екрана ( значение находится в обьекте screen )
+	</div>
+</body>
+</html>
