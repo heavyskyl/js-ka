@@ -42,4 +42,4 @@
 			addCssClass(getResolution().join('X'), html);
 		}
 	})();
-})()
+})();
