@@ -105,5 +105,9 @@ document.documentElement.clientHeight
 Метод elem.scrollIntoView(top) вызывается на элементе и прокручивает страницу так, чтобы элемент оказался вверху, если параметр top равен true,
 и внизу, если top равен false. Причем, если параметр top не указан, то он считается равным true.
 
+12. el.getBoundingClintRect();
+
+{height: 0, width: 1905, left: 0, bottom: -1866, right: 1905…}
+
 13. Dom шпаргалка
 http://learn.javascript.ru/dom-cheatsheet
