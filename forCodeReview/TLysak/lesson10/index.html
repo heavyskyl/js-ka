@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Lesson 10 homework</title>
+	<style>
+		.ie{
+			color : red;	
+		}
+			
+		.chrome{
+			color : blue;
+		}
+
+		.opera{
+			color : green;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="content">
+		<span id="whoIsText">This is place to see the who is who</span>	
+	</div>
+	<script>
+		window.onload = function(){
+			(function() {
+				var browsers = [
+					{name : 'ie', key : 'MSIE', className : 'ie'},
+					{name : 'firefox', key : 'Firefox', className : 'firefox'},
+					{name : 'opera',  key : 'Opera', className : 'opera'},
+					{name : 'chrome', key : 'Chrome', className : 'chrome'},
+					{name : 'safari', key : 'Safari', className : 'safari'}
+					];
+				var oses = [
+					{name : 'windows', key : 'Win', className : 'windows'},
+					{name : 'macOS', key : 'Mac', className : 'macOS'},
+					{name : 'linux', key : 'Linux', className : 'linux'},
+					{name : 'unix', key : 'X11', className : 'unix'}
+					];
+
+				console.log('task #1');
+
+				var getBrowserName = function() {
+					var longAgentName = navigator.userAgent;
+					for (index = 0; index < browsers.length; ++index) {
+					    if(longAgentName.indexOf(browsers[index].key) != -1) return browsers[index].name;
+					}
+					return undefined;
+				};
+				
+				var getOsName = function() {
+					var longAppName = navigator.appVersion;
+					for (index = 0; index < oses.length; ++index) {
+					    if(longAppName.indexOf(oses[index].key) != -1) return oses[index].name;
+					}
+					return undefined;
+				};
+				
+				var browserName = getBrowserName();
+				var osName = getOsName();
+				console.log('the browser name is ' + browserName);
+				console.log('the OS name is ' + osName);
+
+				console.log('task #2');
+				var addCssClass = function(className, element) {
+					if(!className) return;
+					element.className = element.className + " " + className;
+				};
+				
+				var removeCssClass = function(className, element) {
+					if(!className) return;
+					element.className = element.className.replace(className, '');
+				};
+
+				console.log('task #3');
+				var getClassName = function(name) {
+					for (index = 0; index < browsers.length; ++index) {
+					    if(browsers[index].name === name) return browsers[index].className;
+					}
+
+					for (index = 0; index < oses.length; ++index) {
+					    if(oses[index].name === name) return oses[index].className;
+					}
+					return null;					
+				}
+
+				var elementForClassAdd  = document.getElementById("whoIsText");
+				addCssClass(getClassName(browserName), elementForClassAdd);
+				addCssClass(getClassName(osName), elementForClassAdd);
+				
+			
+			})();
+		}
+	</script>
+</body>
+</html>
