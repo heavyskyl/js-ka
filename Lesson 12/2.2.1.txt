@@ -1,0 +1,163 @@
+Событие ( event ) - это сигнал от браузера о том, что что-то произошло.
+
+- DOM события - click, keypress, focus, keydown, etc.
+
+<input type="text" id="input" />
+document.getElementById('input').onclick = function() { alert('click'); }
+
+- События для окна браузера - resize
+window.onresize = function() {}
+
+Загрузка файла, документа - load, redystatechange, DOMContentLoaded
+
+<body onload="myFunction()">
+window.onload=function(){SomeJavaScriptCode};
+
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        initApplication();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("DOM fully loaded and parsed");
+});
+
+
+
+
+Способы назначить события элементу
+
+1. Атрибут тега
+<input onclick="alert('hello World')" type="button" value="Click ME" />
+<input onclick="someFunction()" type="button" value="CLICK ME TOO"/>
+
+2. Яваскриптом через свойство -
+document.getElementById('div').onclick = function(e) { console.log(e) }; // e - обьект с событием
+
+event.target, event.currentTarget
+
+<body>
+    <table>
+    <thead>
+        <tr>
+            <td class="standard">Original target dispatching the event <small>event.target</small></td>
+            <td class="standard">Target who's event listener is being processed <small>event.currentTarget</small></td>
+        </tr>
+    </thead>
+    <tr>
+        <td>Some Table</td>
+        <td>Hello World</td>
+    </tr>
+</table>
+</body>
+
+function handleClicks(e) {
+    console.log(this);
+    console.log('target', e.target);
+    console.log('currentTarget', e.currentTarget);
+}
+
+document.addEventListener('click', handleClicks, false);
+
+
+Внутри обработчика события this ссылается на текущий элемент.
+
+<div id="div"></div>
+document.getElementById('div').onclick = function(e) { this.innerHTML = ' I WAS CLICKED'}
+
+
+
+
+Недостатки назначения через onсобытие
+Фундаментальный недостаток описанных способов назначения обработчика — невозможность повесить несколько обработчиков на одно событие.
+
+Например, одна часть кода хочет при клике на кнопку делать ее подсвеченной, а другая — выдавать сообщение. Нужно в разных местах два обработчика повесить.
+
+При этом новый обработчик будет затирать предыдущий. Например, следующий код на самом деле назначает один обработчик — последний:
+
+input.onclick = function() { alert(1); }
+// ...
+input.onclick = function() { alert(2); } // заменит предыдущий обработчик
+
+
+Специальные методы
+Для назначения обработчиков существуют специальные методы. Как правило, в браузерах они стандартные, кроме IE<9, где они похожи, но немного другие.
+
+IE9 <
+
+element.attachEvent( "on"+event, handler);
+Удаление обработчика — вызовом detachEvent:
+
+element.detachEvent( "on"+event, handler);
+
+
+var input = document.getElementById('button')
+function handler() {
+    alert('спасибо!')
+}
+input.attachEvent( "onclick" , handler) // Назначение обработчика
+// ....
+input.detachEvent( "onclick", handler) // Удаление обработчика
+
+
+У обработчиков, назначенных с attachEvent, нет this
+Обработчики, назначенные с attachEvent не получают this!
+
+Это важная особенность и подводный камень старых IE.
+
+
+Назначение обработчиков по стандарту
+
+function handler() { ... }  // сохраняется порядок назначения обработчиков - пример со старым кодом на jQuery - где в ие обработчики срабатывали подругому
+elem.addEventListener( "click" , handler, false) // назначение обработчика
+elem.removeEventListener( "click", handler, false) // удаление обработчика
+
+третий параметр
+<div id="div">
+
+Some Text
+    <br />
+    <span id="span">SPAN</span>
+</div>
+
+document.getElementById('div').addEventListener('click', function(e) { alert('div clicked') });
+document.getElementById('span').addEventListener('click', function(e) { alert('span clicked') });
+
+
+document.getElementById('div').addEventListener('click', function(e) { alert('div clicked') }, true);
+document.getElementById('span').addEventListener('click', function(e) { alert('span clicked') });
+
+
+Всплытие событий и перехват
+
+<div id="div">
+
+Some Text
+    <br />
+    <span id="span">SPAN</span>
+</div>
+
+document.getElementById('div').addEventListener('click', function(e) {
+    alert('div clicked');
+});
+document.getElementById('span').addEventListener('click', function(e) {
+    alert('span clicked');
+     e.stopPropagation()
+});
+
+
+ДЗ. -
+написать функции hide, show - которые прячут или показывают єлемент
+написать функцию кроссбраузерного добавления обработчика события
+написать функцию кроссбраузерного удаления обработчика события
+
+использую предидущие функции
+написать функцию которая показывает title и description в модальном окне ( задний фон черный и прозрачный )
+         модальное окно должно быть отцентрировано в том числе и при изменении размера окна браузера
+
+         у окна есть кнопка close - которая закрывает окошко
+
+         html должен создаваться динамически яваскриптом только в первый раз ( при повторных вызовах просто делать hide/show
+
+         (пример - http://efimov.ws/assets/images/2011/10/10/4.jpg)
