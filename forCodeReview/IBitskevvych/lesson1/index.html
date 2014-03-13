@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lesson 1</title>
+</head>
+<script>
+	"use strict"
+
+	var myObj = {
+		sqrt: function(number) {
+			return number * number;
+		},
+		maxNumber: function(numberArray) {
+			var max = numberArray[0];
+			for (var i = 0; i < numberArray.length; i++) {
+				if (numberArray[i] > max)
+					max = numberArray[i];
+			};
+			return max;
+		},
+		isInArray: function(array, number) {
+			for (var i = 0; i < array.length; i++) {
+				if (number === array[i]) return true;
+			};
+			return false;
+		},
+		slice: function(array, from, to) {
+			if (array.length < to) {
+				console.log('Error');
+				return false;
+			}
+			else if (from < 0) {
+				console.log('Maybe in future... But not now');
+				return false;
+			}
+			var sliceResult = [];
+			for (var i = from; i < to; i++) {
+				sliceResult.push(array[i]);
+			};
+			return sliceResult;
+		},
+		average: function(a, b) {
+			return (a + b) / 2;
+		}
+	};
+	var testArray = [4,6,8,10,2,4,-5,6,2,13,3,7,0];
+</script>
+<body>
+	
+</body>
+</html>
