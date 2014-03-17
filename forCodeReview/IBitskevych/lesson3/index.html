@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lesson 3</title>
+	<script>
+		"use strict";
+
+        var whatIsArg = function(arg) {
+            switch (Object.prototype.toString.call(arg)) {
+                case '[object String]':
+                    return 'This is Srting';
+                case '[object Boolean]':
+                    return 'This is Boolean';
+                case '[object Number]':
+                    return 'This is Number';
+                case '[object Null]':
+                    return 'This is Null';
+                case '[object Function]':
+                    return 'This is Function';
+                case '[object Object]':
+                    return 'This is Object';
+                case '[object Array]': 
+                    return 'This is Array';
+                default:
+                    return 'I dont know what is it...';
+            }
+        }
+
+
+		function Human(name, surname, age, sex, languages) {
+			this.name = name;
+			this.surname = surname;
+			this.age = age;
+			this.sex = sex;
+            this.languages = languages;
+		}
+
+		Human.prototype.getFullName = function() {
+			return this.name + ' ' + this.surname;
+		}
+        Human.prototype.getAge = function() {
+            return this.age;
+        }
+        Human.prototype.setAge = function(age) {
+            this.age = age;
+        }
+        Human.prototype.isKnowLanguage = function(lang) {
+            for(var i = 0; i < this.languages.length; i++) {
+                if(lang.toLowerCase() == this.languages[i].toLowerCase()) return true;
+            }
+            return false;
+        }
+
+        var testHuman = new Human('Ivan', 'Bitskevych', 20, 'male', ['JavaScript', 'PHP', 'HTML', 'CSS']);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
