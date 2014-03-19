@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lesson 4</title>
+	<script>
+    (function() {
+		"use strict";
+		function Car(model, price, owner, mileage) {
+            var model = model,
+                price = price,
+                owner = owner,
+                mileage = mileage;
+
+            function kmToMile() {
+                return mileage.value / 0.621;
+            }
+
+            function mileToKm() {
+                return mileage.value * 0.621;
+            };
+
+            return {
+                getModel: function() {return model;},
+                setModel: function(newModel) {model = newModel;},
+                getMileage: function(type) {
+                    if(type.toLowerCase() == 'km') {
+                        if(mileage.type == 'km') return mileage.value;   
+                        return kmToMile();
+                    } else if(type.toLowerCase() == 'mile') {
+                        if(mileage.type == 'mile') return mileage.value;
+                        return mileToKm();
+                    }
+                    return false;
+                },
+                setMileage: function(type, value) {mileage.type = type.toLowerCase(); mileage.value = value;}
+            };
+        }
+
+        var testCar = new Car('Mazda', 75896, 'User', {type: 'km', value: '48655'});
+    })();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
