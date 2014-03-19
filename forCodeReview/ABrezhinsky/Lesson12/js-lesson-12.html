@@ -1,17 +1,45 @@
 ﻿<html>
 <head>
+	<style>
+	#container {
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+		bottom: 0;
+		display: none;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	#modal {
+		background: none repeat scroll 0 0 #FFFFFF;
+		border-radius: 10px;
+		height: auto;
+		left: 400px;
+		padding: 20px;
+		position: absolute;
+		top: 111px;
+	}
+	#closer {
+		background: none repeat scroll 0 0 #FF0000;
+		border: 5px solid #C0C0C0;
+		border-radius: 25px;
+		color: #FFFFFF;
+		cursor: pointer;
+		font-size: 25px;
+		font-weight: bold;
+		height: 40px;
+		line-height: 40px;
+		position: absolute;
+		right: -10px;
+		text-align: center;
+		top: -10px;
+		width: 40px;
+	}
+	</style>
 	<script type="text/javascript">
 	(function(window) {
-		var styletemplates  = {
-			zen: {
-				container: { "background": "none repeat scroll 0 0 rgba(0, 0, 0, 0.5)", "bottom": "0", "display": "none", "left": "0", "position": "absolute", "right": "0", "top": "0" },
-				modal: { "background": "none repeat scroll 0 0 #FFFFFF", "border-radius": "10px", "padding": "20px", "position": "absolute"},
-				closer: { "background": "none repeat scroll 0 0 #FF0000", "border": "5px solid #C0C0C0", "border-radius": "25px", "color": "#FFFFFF", "cursor": "pointer", "font-size": "25px", "font-weight": "bold",
-				"height": "40px", "line-height": "40px", "position": "absolute", "right": "-10px", "text-align": "center", "top": "-10px", "width": "40px" }
-			}
-		};
 		
-		function buildUtils() {	
+		function BuildUtils() {	
 			var bindEvent;
 			
 			if(document.attachEvent) {
@@ -34,14 +62,18 @@
 			
 			this.createElement = function(conf) {
 				var it = document.createElement(conf["tag"]);
+				
 				for(var prop in conf)
 					switch (prop) {
-					case "text" : it.textContent = conf[prop];
-					break;
-					case "styles" : this.setStyles(conf[prop], it);
-					break;
-					case "event" : this.bindEvent(conf[prop], conf["handler"], it);
-					break;
+					case "text" : 
+						it.textContent = conf[prop];
+						break;
+					case "id" : 
+						it.id = conf[prop];
+						break;
+					case "event" : 
+						this.bindEvent(conf[prop], conf["handler"], it);
+						break;
 					}
 				return it;
 			}
@@ -49,16 +81,16 @@
 		
 		function Popup(template, title, text) {
 			var container, modal, closer,
-				builder = new buildUtils(),
-				self = this, preventer;
+				builder = new BuildUtils(),
+				self = this;
 			
 			function build() {
-				closer = builder.createElement({tag: "div", text: "X", styles: styletemplates[template].closer, event: "click", handler: closeHandler})
-				modal = builder.createElement({"tag": "dev", styles: styletemplates[template].modal});
+				closer = builder.createElement({tag: "div", text: "X", id: "closer", event: "click", handler: closeHandler})
+				modal = builder.createElement({tag: "dev", id: "modal"});
 				modal.appendChild(closer)
-				modal.appendChild(builder.createElement({"tag": "h1", text: title}));
-				modal.appendChild(builder.createElement({"tag": "div"}).appendChild(builder.createElement({"tag": "p", text: text})));
-				container = builder.createElement({"tag": "div", styles: styletemplates[template].container});
+				modal.appendChild(builder.createElement({tag: "h1", text: title}));
+				modal.appendChild(builder.createElement({tag: "div"}).appendChild(builder.createElement({tag: "p", text: text})));
+				container = builder.createElement({tag: "div", id: "container"});
 				container.appendChild(modal);
 				document.body.appendChild(container);
 				builder.bindEvent('resize', reDraw, window);
@@ -75,41 +107,49 @@
 			
 			function reDraw() {
 				var h = window.innerHeight,
-					w = window.innerWidth;
-				
-				modal.style.left = w / 4;
-				modal.style.top = h / 4;
-				modal.style.height = h / 2;
-				modal.style.width = w /2;
+					w = window.innerWidth,
+					
+					styles = {
+						"left": w / 4,
+						"top": h / 4,
+						"width": w / 2
+					};
+					
+				builder.setStyles(styles, modal);
 			};
 			
 			this.show = function() {
-				container.style.display = 'block';
-			};
+				builder.setStyles({"display": "block"}, container);
+			},
 			
 			this.hide = function() {
-				container.style.display = 'none';
-			};
+				builder.setStyles({"display": "none"}, container);
+			};	
 			
-			window.Popup = function() {
-				return self;
-			};
 			build();
 		};
 		
 		window.Popup = Popup;
 	})(window);
 	
-	function showPopup() {
-		var text, test;
-		
-		text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.';
+	window.onload = function() {
+		var text,
+			test;
+			
+		text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.'
+				+ 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.';
 		test = new Popup('zen', 'Header', text);
-		test.show();
+		
+		document.onclick = test.show;
 	};
 	</script>
 </head>
 <body>
-	<a href="javascript:showPopup()">click me</a>
 </body>
 </html>
