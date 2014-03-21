@@ -40,15 +40,15 @@
     }
     
     function testFunc(){
-        if(screen.width === 1600){ 
+        if (screen.width === 1600) { 
             addCssClass(browserVersion() + " ", document.getElementById("camel"));
-        }
-        else{
+        } else {
             addCssClass(browserVersion() + " ", document.getElementById("add"));
             removeCssClass("one" + " ", document.getElementById("camel"));
         }       
     }
-testFunc();
-alert(document.body.innerHTML);
+
+    testFunc();
+    alert(document.body.innerHTML);
         
 })();
