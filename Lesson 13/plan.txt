@@ -1,0 +1,170 @@
+1. Анимация
+
+Основа
+
+var timer = setInterval(function() {
+    показать новый кадр
+    if (время вышло) clearInterval(timer);
+}, 10) // задержка (delay)
+
+
+Пример
+
+<div id="el" class="example_path">
+  <div id="anim_el" class="example_block"></div>
+</div>
+
+function move(elem) {
+  var left = 0;
+
+  function frame() {
+    left++;
+    elem.style.left = left + 'px'
+
+    if (left == 100) {
+      clearInterval(timer);
+    }
+  }
+
+  var timer = setInterval(frame, 10);
+}
+
+document.getElementById('el').onclick = function(e) {
+   move(document.getElementById('anim_el'));
+}
+
+.example_path {
+    position: relative;
+    overflow: hidden;
+    width: 530px;
+    height: 30px;
+    border: 3px solid #000;
+}
+
+.example_path .example_block {
+    position: absolute;
+    background-color: blue;
+    width: 30px;
+    height: 20px;
+    padding-top: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+Структура анимации
+
+У анимации есть три основных параметра:
+
+delay
+    Время между кадрами (в миллисекундах, т.е. 1/1000 секунды). Например, 10мс.
+duration
+    Общее время, которое должна длиться анимация, в мс. Например, 1000мс.
+step(progress)
+    Функция step(progress) занимается отрисовкой состояния анимации, соответствующего времени progress.
+
+Пример
+
+function animate(opts) {
+  var start = new Date; // сохранить время начала
+  var timer = setInterval(function() {
+    // вычислить сколько времени прошло
+    var progress = (new Date - start) / opts.duration;
+    if (progress > 1) progress = 1;
+
+    // отрисовать анимацию
+    opts.step(progress);
+
+    if (progress == 1) clearInterval(timer); // конец :)
+
+  }, opts.delay || 10); // по умолчанию кадр каждые 10мс
+
+}
+
+document.getElementById('el').onclick = function(e) {
+    var elem = document.getElementById('anim_el');
+    animate({
+        duration: 1000, // время на анимацию 1000 мс
+        step: function(progress) {
+          elem.style.width = progress*100 + '%';
+        }
+   });
+}
+
+Функции обертки
+
+function move(elem) {
+  var to = 500;
+
+  animate({
+    duration: 1000,
+    step: function(progress) {
+      // progress меняется от 0 до 1, left от 0px до 500px
+      elem.style.left = to*progress + "px";
+    }
+  });
+
+}
+
+Delta
+В сложных анимациях свойства изменяются по определённому закону. Зачастую, он гораздо сложнее, чем простое равномерное
+возрастание/убывание.
+Для того, чтобы можно было задать более хитрые виды анимации, в алгоритм добавляется дополнительная
+функция delta(progress), которая вычисляет текущее состояние анимации от 0 до 1,
+а step использует её значение вместо progress.
+
+function animate(opts) {
+  var start = new Date;
+  var timer = setInterval(function() {
+    var progress = (new Date - start) / opts.duration;
+
+    if (progress > 1) progress = 1;
+    opts.step( opts.delta(progress) );
+    if (progress == 1) clearInterval(timer);
+
+  }, opts.delay || 10);
+}
+
+function linear(progress) {
+  return progress;
+}
+
+
+function quad(progress) {
+  return Math.pow(progress, 2)
+}
+
+function circ(progress) {
+    return 1 - Math.sin(Math.acos(progress))
+}
+
+function move(elem, delta, duration) {
+  var to = 500;
+
+  animate({
+    delay: 10,
+    duration: duration || 1000,
+    delta: delta,
+    step: function(delta) {
+      elem.style.left = to*delta + "px"
+    }
+  });
+
+}
+
+document.getElementById('el').onclick = function(e) {
+    var elem = document.getElementById('anim_el');
+   move(elem, linear, 1000);
+}
+
+(linear.png, quad.png, circ.png, back.png)
+
+
+
+
+Д.З.
+
+сделать чтобы модальное окно из прошлого задания появлялось, скрывалось с случайной анимацией ( линейной, квардратичной
+и других )
+
