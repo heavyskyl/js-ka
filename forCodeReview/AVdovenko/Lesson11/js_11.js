@@ -1,6 +1,6 @@
 (function(){
-    var titleMod = "Цікаві факти",
-        bodyMod = "Оси не рояться. Нові колонії з'являються навесні завдяки тому, що матка відкладає яйця, пестує робітників, і поступово колонія ос збільшується. Наприкінці літа в гнізді з'являється молоде покоління самок і самців, які вирушають у шлюбні польоти. Після запліднення самки впадають у сплячку, а самці гинуть.У деяких видів ос у гнізді може перебувати до 20 тисяч особин.Різні види ос на передній частині голови мають чіткий візерунок різної форми, за яким їх легко розрізняють.";
+    var titleMod = "Filozoa",
+        bodyMod = "The ancestral opisthokont cell is assumed to have possessed slender filose (thread-like) projections or 'tentacles'. In some opisthokonts (Mesomycetozoa and Corallochytrium) these were lost. They are retained in Filozoa, where they are simple and non-tapering, with a rigid core of actin bundles (contrasting with the flexible, tapering and branched filopodia of nucleariids and the branched rhizoids and hyphae of fungi). In choanoflagellates and in the most primitive animals, namely sponges, they aggregate into a filter-feeding collar around the cilium or flagellum; this is thought to be an inheritance from their most recent common filozoan ancestor.";
     
     function showMessage(title, body) {
         var container = document.createElement('div');
