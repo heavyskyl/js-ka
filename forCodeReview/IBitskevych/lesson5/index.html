@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lesson 5</title>
+	<script>
+	(function() {
+		"use stirct";
+		var callCounter = function() {
+			var counter = 1;
+
+			function increase() {
+				return counter++;
+			}
+			return increase;
+		}();
+
+		var createObjects = function(amount) {
+			var arr = [],
+				i = 0;
+			for(; i < amount; i++) {
+				arr.push({
+					getIndex: (function(arg) {
+						return function() {
+							return arg;
+						}
+					})(i)
+				});
+			};
+
+			return arr;
+		};
+
+		var DataMap = function() {
+			var data = {};
+
+			this.set = function(key, value) {
+				data[key] = value;
+			};
+
+			this.get = function(key) {
+				return data[key];
+			};
+		}
+
+		var Person = (function() {
+		    var privateData = new DataMap();
+
+		    function Person(name) {
+		        privateData.set(this, { name: name });
+		    }
+
+		    Person.prototype.getName = function() {
+		        return privateData.get(this).name;
+		    };
+
+		    return Person;
+		}());
+	})();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
