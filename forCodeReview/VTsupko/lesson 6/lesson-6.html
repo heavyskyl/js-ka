@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script type="text/javascript">
+			/*Написать функцию которая вызывает сама себя 5 раз с таймаутом 1, 2, 3, 4, 5 секунд*/
+			function initSelf (iteration, timeout){
+				"use strict";
+				var i = 1,
+					k = 1000,
+					interval = timeout * k,
+					timeputFunc = setInterval(function () {
+						if (i <= iteration) {
+							console.log(i++, getTime(), interval);
+						} else {
+							clearInterval(timeputFunc);
+						}
+					}, interval);
+
+				function getTime() {
+					return (new Date).getHours() + ':' + (new Date).getMinutes() + ':' + (new Date).getSeconds();
+				}
+			}
+
+			/*Написать функцию которая раз в 100 мс выводит в консоль случайное число от 5 до 20.*/
+			function randomFunc() {
+				"use strict";
+
+				var i = 1,
+					iteration = 55,
+					timeputFunc = setInterval(function () {
+						if (i <= iteration) {
+							console.log(i++, randomValue());
+						} else {
+							clearInterval(timeputFunc);
+						}
+					}, 100);
+
+				function randomValue() {
+					return Math.floor((Math.random() * (20 - 5 + 1) + 5));
+					/*
+					 return Math.floor(Math.random() * (max - min + 1) + min);
+					 */
+				}
+			}
+	</script>
+</head>
+<body>
+<h3>lesson 6</h3>
+<ol>
+	<li>initSelf (iteration, timeout) Написать функцию которая вызывает сама себя 5 раз с таймаутом 1, 2, 3, 4, 5 секунд</li>
+	<li>randomFunc() Написать функцию которая раз в 100 мс выводит в консоль случайное число от 5 до 20.</li>
+</ol>
+</body>
+</html>

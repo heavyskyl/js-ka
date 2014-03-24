@@ -1,0 +1,88 @@
+<!Doctype html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>modal window</title>
+	<meta name="" content="">
+
+	<link href="style/main.css" rel="stylesheet">
+
+	<script src="js/modalWindow.js"></script>
+
+	<script src="js/init.js"></script>
+
+</head>
+<body>
+<div style="
+    width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100%;
+    padding: 0 20px;
+    overflow: hidden;">
+	<header><h1>Custom modal window</h1></header>
+	<div>
+		<p><button id="modal-default">default modal</button></p>
+		<p><button id="modal-sm">small modal</button></p>
+		<p><button id="modal-md">medium modal</button></p>
+		<p><button id="modal-lg">large modal</button></p>
+		<p><button id="modal-noHead">without header modal</button></p>
+		<p><button id="modal-noFooter">without footer modal</button></p>
+		<p><button id="modal-noCloseButton">without close button modal</button></p>
+
+	</div>
+	<br>
+	<div>
+		<p>
+			написать функции hide, show - которые прячут или показывают єлемент <br>
+			написать функцию кроссбраузерного добавления обработчика события <br>
+			написать функцию кроссбраузерного удаления обработчика события <br>
+			<br>
+			использую предидущие функции <br>
+			написать функцию которая показывает title и description в модальном окне ( задний фон черный и прозрачный ) <br>
+			модальное окно должно быть отцентрировано в том числе и при изменении размера окна браузера <br>
+			<br>
+			у окна есть кнопка close - которая закрывает окошко <br>
+			<br>
+			html должен создаваться динамически яваскриптом только в первый раз ( при повторных вызовах просто делать hide/show <br>
+		</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a risus sit amet arcu pulvinar tempus. Pellentesque sollicitudin ornare
+		metus, vel malesuada nisl. Proin congue orci ipsum, sed suscipit sem tristique eget. Aenean mauris neque, interdum id massa a, commodo
+		adipiscing metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed condimentum gravida
+		libero, eget dignissim sapien mollis id. Aliquam sodales ultricies sapien eget iaculis. Praesent vel quam posuere, egestas nisl at, pulvinar
+		velit. In vitae egestas ante. Vivamus viverra lacus lectus, ac aliquet ante pretium vitae. In egestas ac lacus a vulputate. Aenean magna
+		justo, ullamcorper ut commodo sollicitudin, vehicula a ipsum. Quisque eget varius augue. Nam bibendum, nisi at porta dapibus, tortor felis
+		sodales leo, at blandit nisi arcu a libero. Donec vel lectus non nunc scelerisque tempor.</p>
+
+		<p>Vestibulum eget varius felis. Praesent posuere hendrerit neque, quis commodo nulla scelerisque at. Praesent placerat magna ac dui suscipit
+		mattis. Etiam ac erat porttitor, ullamcorper felis et, mollis purus. Nullam consectetur, lacus et rhoncus pretium, sapien mauris tempus erat,
+		in accumsan mauris urna in arcu. Phasellus id interdum dolor, ac congue orci. Phasellus facilisis quam vitae ante mollis luctus. Morbi nec est
+		eget metus commodo facilisis quis in eros. Proin dui quam, aliquam ut euismod et, sollicitudin mattis velit. Aliquam lobortis nisl ante, eu
+		pharetra orci ultricies consequat. Curabitur egestas lectus porttitor turpis auctor, nec euismod mauris porta. In porttitor consequat nisl nec
+		faucibus. Sed ornare nibh elit, et sagittis nunc blandit vel. Praesent nec congue diam. Proin et augue molestie, fermentum risus a, cursus
+		turpis. Ut feugiat convallis tempus.</p>
+
+		<p>Duis auctor magna sed nulla rhoncus vehicula. Sed faucibus lacinia facilisis. Quisque rhoncus ante quam, id fringilla ante placerat a. Nunc at
+		est felis. Proin vel varius nibh. Donec consectetur aliquam adipiscing. Aliquam odio leo, sagittis et felis vitae, posuere molestie lorem.
+		Curabitur molestie arcu quis semper luctus. Morbi ac rhoncus mi, quis mattis ipsum. Aenean tristique iaculis tortor, condimentum lacinia quam
+		elementum vel. Aenean egestas in turpis et sollicitudin.</p>
+
+		<p>Phasellus porta dignissim ipsum id iaculis. Proin viverra suscipit libero, sed luctus sapien ultricies porttitor. Phasellus imperdiet, enim in
+		sagittis sollicitudin, diam ante commodo felis, ut feugiat leo purus sit amet enim. Donec sit amet risus ac augue convallis sollicitudin et ut
+		turpis. Maecenas tempus imperdiet augue, sed dapibus est dapibus fermentum. Suspendisse non commodo elit, id congue eros. Sed pellentesque
+		quam id gravida mattis. Nullam commodo mi neque, vitae interdum eros lacinia sit amet. Ut pharetra tincidunt faucibus. Donec tempus, neque non
+		cursus fringilla, sapien augue laoreet lorem, non pretium nibh odio id nulla. Nam a metus malesuada, volutpat nulla nec, pharetra felis.
+		Maecenas eget augue eget neque laoreet egestas nec et odio. In commodo urna sit amet vestibulum ornare. Nam nisi turpis, vehicula nec ante at,
+		sagittis euismod magna.</p>
+
+		<p>Maecenas egestas sagittis erat sed faucibus. Quisque placerat, lacus eget facilisis eleifend, nisi leo volutpat tellus, et facilisis nisl
+		dolor sit amet mi. Fusce in eros fringilla, pellentesque nibh in, rutrum sem. Aenean rutrum diam tellus, in feugiat tellus aliquet ut. Mauris
+		consequat, ligula vitae egestas sodales, leo nunc vehicula dui, et accumsan arcu mi ac nisl. Proin rhoncus fringilla lacus, eget elementum
+		elit cursus quis. Donec massa dolor, aliquam fringilla ante vitae, auctor lacinia ante. Nunc et mattis lorem. Quisque tortor sem, tristique id
+		ante non, vehicula rutrum dui. In hac habitasse platea dictumst. Maecenas egestas euismod dapibus. Proin purus justo, viverra et adipiscing
+		in, iaculis vel odio. Donec congue tempor pulvinar. Nam gravida, velit nec pulvinar eleifend, nisl ante eleifend neque, sit amet ultrices
+		metus diam sit amet mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper porttitor justo.</p>
+	</div>
+</div>
+</body>
+</html>

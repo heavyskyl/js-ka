@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script type="text/javascript">
+		/*
+		3.1. написать функцию которая возвращает тип входящего параметра
+		(строка, число, массив, обьект) используя
+		Object.prototype.toString.call и switch/case оператор (посмотреть
+		в интернете что она делает и как она работает)
+		*/
+		var object = new Object(),
+				array = [],
+				func = new Function("x,y", "return x * y"),
+				boolean = true,
+				number = 10,
+				string = 'hellow world',
+				nothing = null,
+				variable;
+		function dataTypeOf(params) {
+			"use strict";
+
+			var paramsType = Object.prototype.toString.call(params),
+					displayResult;
+			switch (paramsType) {
+				case '[object Object]':
+					displayResult = 'Object';
+					break;
+				case '[object Array]':
+					displayResult = 'Array';
+					break;
+				case '[object Function]':
+					displayResult = 'Function';
+					break;
+				case '[object Boolean]':
+					displayResult = 'Boolean';
+					break;
+				case '[object Number]':
+					displayResult = 'Number';
+					break;
+				case '[object String]':
+					displayResult = 'String';
+					break;
+				case '[object Undefined]':
+					displayResult = 'Undefined';
+					break;
+				case '[object Null]':
+					displayResult = 'Null';
+					break;
+				default:
+					displayResult = 'oops';
+			}
+			return displayResult;
+		}
+		console.log(dataTypeOf(object));
+		console.log(dataTypeOf(array));
+		console.log(dataTypeOf(func));
+		console.log(dataTypeOf(number));
+		console.log(dataTypeOf(string));
+		console.log(dataTypeOf(nothing));
+		console.log(dataTypeOf(variable));
+//		console.log(dataTypeOf(tratata));
+
+		/*
+		3.2. написать класс Human  у которого есть параметры name, surname,
+		age, sex, языки программирование которыми он владеет ( массив ) в
+		прототипе класса должны быть методы getFullName, getAge,
+		setAge(val), hasKnowledge(languge) ( возвращает true/false -
+		знает ли человек конкреты язык программирования
+		*/
+		function Human(name, surname, age, sex, languages){
+			"use strict";
+
+			this.name = name;
+			this.surname = surname;
+			this.age = age;
+			this.sex = sex;
+			this.languages = languages;
+		}
+
+		Human.prototype = {
+
+			getFullName : function(){
+				return this.name + ' ' + this.surname;
+			},
+
+			getAge : function(){
+				return this.age;
+			},
+
+			setAge : function(val){
+				return this.age = val;
+			},
+
+			hasKnowledge : function(language){
+				if(this.languages.indexOf(language) >= 0){
+					return true;
+				}
+			}
+		}
+
+		var human1 = new Human('username', 'usersurname', 25, 'male', ['lang1', 'lang2', 'lang3']);
+
+		/*
+		3.3. создать 2 екземпляра класса передать в один из методов
+		екземпляра ссылку this ( контекст функции ) используя
+		Function.prototype.call метод
+		*/
+		human1.getFullName.call({ name : 'qwer', surname : 'qwerrewq'});
+	</script>
+</head>
+<body>
+<h3>lesson 3</h3>
+<ol>
+	<li>написать функцию которая возвращает тип входящего параметра
+		(строка, число, массив, обьект) используя
+		Object.prototype.toString.call и switch/case оператор (посмотреть
+		в интернете что она делает и как она работает)</li>
+	<li>написать класс Human  у которого есть параметры name, surname,
+		age, sex, языки программирование которыми он владеет ( массив ) в
+		прототипе класса должны быть методы getFullName, getAge,
+		setAge(val), hasKnowledge(languge) ( возвращает true/false -
+		знает ли человек конкреты язык программирования</li>
+	<li>создать 2 екземпляра класса
+		передать в один из методов екземпляра ссылку this ( контекст
+		функции ) используя Function.prototype.call метод</li>
+</ol>
+</body>
+</html>

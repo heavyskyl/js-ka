@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			var inputs = document.getElementById('myInputs'),
+					btn2 = document.getElementById('method2'),
+					btn3 = document.getElementById('method3'),
+					btn4 = document.getElementById('method4'),
+					btn5 = document.getElementById('method5'),
+					btn6 = document.getElementById('method6'),
+					result2 = document.getElementById('result2'),
+					result3 = document.getElementById('result3'),
+					result4 = document.getElementById('result4'),
+					result5 = document.getElementById('result5'),
+					result6 = document.getElementById('result6'),
+					arr = [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+			function kvadrat(a, b, c) {
+				var value = a,
+					exp = b,
+					res = 1,
+					i;
+
+				if (value == 0) {
+					value = 0;
+				} else {
+					if (exp > 0) {
+						for (i = 1; i < exp; i++) {
+							value *= a;
+						}
+					} else if (exp < 0) {
+						exp = -exp;
+						for (i = 1; i <= exp; i++) {
+							res /= value;
+						}
+						value = res;
+					} else if (exp == 0) {
+						value = 1;
+					}
+				}
+				c.innerHTML = value;
+			}
+
+			function sredArif(a, c) {
+				var inputs = a.getElementsByTagName('input'),
+						val = 0,
+						i;
+				for (i = 0; i < inputs.length; i++) {
+					val = val + parseInt(inputs[i].value);
+				}
+				val = val / inputs.length;
+				c.innerHTML = val;
+			}
+
+			function checkFields(a, b) {
+				if (a && b) {
+					return true;
+				} else {
+					alert('выберите значение');
+					return false;
+				}
+			}
+
+			function getMax(e, c) {
+				var max = -Infinity,
+						i;
+
+				for (i = 0; i < e.length; i++) {
+					if (e[i] > max)
+						max = e[i];
+				}
+				c.innerHTML = max;
+			}
+
+			function isInArray(array, value) {
+				for (var i = 0; i < array.length; i++) {
+					if (value == array[i]) return true;
+				}
+				return false;
+			}
+
+			function isPartArray(array, fromvalue, tovalue, c) {
+				c.innerHTML = arr.slice(fromvalue, tovalue);
+			}
+
+
+			btn2.onclick = function () {
+				var numb = document.getElementById("number").value,
+						exp = document.getElementById("exp").value;
+				if (checkFields(numb, exp)) {
+					kvadrat(numb, exp, result2);
+				}
+			};
+			btn3.onclick = function () {
+				var numb = document.getElementById("number").value,
+						exp = document.getElementById("exp").value;
+				if (checkFields(numb, exp)) {
+					sredArif(inputs, result3);
+				}
+			};
+			btn4.onclick = function () {
+				getMax(arr, result4);
+			};
+			btn5.onclick = function () {
+				var isNumber = document.getElementById("isNumber").value;
+				alert(isInArray(arr, isNumber));
+			};
+			btn6.onclick = function () {
+				var fromNumber = document.getElementById("fromNumber").value,
+						toNumber = document.getElementById("toNumber").value;
+				isPartArray(arr, fromNumber, toNumber, result6);
+			};
+
+		});
+	</script>
+</head>
+
+<body>
+<div id="myInputs">
+<label for="number"><input type="number" id="number"/>число</label><br/>
+<label for="exp"><input type="number" id="exp"/>степень</label><br/>
+</div>
+<hr>
+<p>квадрат</p>
+<button id="method2">method2</button>
+<p id="result2"></p>
+<hr>
+<p>ср арифметическое</p>
+<button id="method3">method3</button>
+<p id="result3"></p>
+<hr>
+-8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8
+<table border="2px solid #999">
+	<thead>
+	<tr >
+		<td>возвращает максимальное значение из массива целых чисел </td>
+		<td>возвращает находится ли елемент x, в массиве y. !!!!</td>
+		<td>функцию которая возвращает срез массива от индекса x, до индекса y.</td>
+	</tr>
+	<tbody>
+	<tr>
+		<td><button id="method4">method4</button></td>
+		<td><input id="isNumber" type="number"/>
+			<button id="method5">method5</button></td>
+		<td><input id="fromNumber" type="number"/><label for="fromNumber">from</label>
+			<input id="toNumber" type="number"/><label for="toNumber">to</label>
+			<button id="method6">method6</button></td>
+	</tr>
+	<tr>
+		<td><p id="result4"></p></td>
+		<td><p id="result5"></p></td>
+		<td><p id="result6"></p></td>
+	</tr>
+	</tbody>
+	</thead>
+</table>
+
+
+
+
+а. возвращает квадрат числа     <br>
+б. возвращает максимальное значение из массива целых чисел     <br>
+в. возвращает находится ли елемент x, в массиве y.     <br>
+г. функцию которая возвращает срез массива от индекса x, до индекса y.     <br>
+д. функцию которая возвращает среднее арифметическое от двух чисел.     <br>
+</body>
+</html>

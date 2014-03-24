@@ -1,0 +1,156 @@
+html {
+	height: 100%
+}
+body {
+	overflow: hidden;
+	background: #e3e3e3;
+	color: #000;
+	font: 14px/16px arial, sans-serif;
+	height: 100%;
+	min-height: 100%;
+	position: relative;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+}
+#modal {
+	display: block;
+	background-color: rgba(0, 0, 0, 0.5);
+	overflow: auto;
+	overflow-y: scroll;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1050;
+	-webkit-overflow-scrolling: touch;
+	outline: 0;
+	/*opacity: 0;*/
+	/*visibility: hidden;*/
+}
+.modal-dialog{
+	margin: auto;
+}
+.modal-content {
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15), inset 0 0 180px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15), inset 0 0 180px rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	border: 1px solid #fff;
+	position: relative;
+	background-color: #fff;
+	background-clip: padding-box;
+	outline: 0;
+}
+.modal-header,
+.modal-body,
+.modal-footer {
+	padding: 24px 40px;
+	font-size: 16px;
+}
+.modal-header {
+	border-bottom: 1px solid #e5e5e5;
+}
+.modal-header .modal-title{
+	margin:0;
+}
+.modal-header .closeModalButton{
+	background: none;
+	border: none;
+	color: #000;
+	cursor: pointer;
+	float: right;
+	font-size: 32px;
+	font-weight: normal;
+	line-height: 14px;
+	opacity: 1;
+	padding: 0;
+	text-shadow: 0 1px 0 #fff;
+	-webkit-appearance: none;
+}
+.modal-body {
+	position: relative;
+}
+.modal-footer {
+	border-top: 1px solid #e5e5e5;
+}
+.modal-sm {
+	width: 320px;
+}
+.modal-md {
+	width: 640px;
+}
+.modal-lg {
+	width: 960px;
+}
+.modal-full {
+	margin-left:60px;
+	margin-right:60px;
+}
+.visible{
+	visibility: visible;
+}
+.hidden{
+	visibility: hidden;
+}
+.fade {
+	opacity: 0;
+	-webkit-transition: opacity .15s linear;
+	transition: opacity .15s linear;
+}
+.fade.in {
+	opacity: 1;
+}
+
+/*---------------------------*/
+.none {
+	display: none;
+}
+.block {
+	display: block;
+}
+.ofh {
+	overflow: hidden;
+}
+.abs {
+	position: absolute;
+}
+.pop-bask {
+	background-color: #FFFFFF;
+	padding: 20px 0;
+	width: 782px;
+}
+.popuperclose {
+	background: red;
+	cursor: pointer;
+	display: block;
+	height: 34px;
+	right: -10px;
+	top: -10px;
+	width: 33px;
+}
+.popuper {
+	background-color: rgba(0, 0, 0, 0.47);
+	border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	padding: 10px;
+	position: relative;
+	margin: 0 auto;
+	width: 782px;
+}
+#popuperblock {
+	margin: auto;
+}
+.bg-block {
+	background: none repeat scroll 0 0 rgba(61, 73, 85, 0.7);
+	background: black\0/;
+	height: 100%;
+	left: 0;
+	overflow: auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 100;
+}

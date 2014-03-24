@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script type="text/javascript">
+
+		/*
+		 4.1. написать функцию Car, которая имеет приватные свойства model,
+		 kmStand, price, owner и публичные методы геттеры и сеттеры для этих
+		 свойств (getModel, setModel, etc.) Так же создайте внутри функции
+		 приватные методы kmStandToMiles(), milesStandToKm -для преоброзования
+		 пробега в километрах в мили и наоборот ( эти методы должны использовать
+		 публичные getStand, setStand у публичного метода getStand(type),
+		 setStand(newVal, type) -  тип километры/мили
+		 */
+		function Car(model, stand, standType, price, owner) {
+			"use strict";
+
+			/*private*/
+			var model = model,
+					price = price,
+					owner = owner,
+					stand = {
+						value: stand,
+						standType: standType
+					};
+
+			function kmStandToMiles(val) {
+				return val * 0.62;
+			}
+
+			function milesStandToKm(val) {
+				return val / 0.62;
+			}
+
+			/*public*/
+			return {
+				getModel: function () {
+					return model;
+				},
+				setModel: function (val) {
+					model = val
+				},
+				getStand: function () {
+					return stand.value
+				},
+				getStandType: function () {
+					return stand.standType
+				},
+				setStand: function (val, type) {
+					if (val && type) {
+						stand.value = val;
+						stand.standType = type;
+					} else if (!val && type) {
+						if (type === 'km') {
+							stand.value = kmStandToMiles(stand.value);
+						} else if ((type === 'ml')) {
+							stand.value = milesStandToKm(stand.value);
+						}
+					} else {
+						alert('Ъ!')
+					}
+				},
+				getPrice: function () {
+					return price;
+				},
+				setPrice: function (val) {
+					price = val;
+				},
+				getowner: function () {
+					return owner;
+				},
+				setowner: function (val) {
+					owner = val;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+<h3>lesson 4</h3>
+<ol>
+	<li>написать функцию Car, которая имеет приватные свойства model, kmStand,
+		price, owner и публичные методы геттеры и сеттеры для этих свойств
+		(getModel, setModel, etc.) Так же создайте внутри функции приватные
+		методы kmStandToMiles(), milesStandToKm -для преоброзования пробега в
+		километрах в мили и наоборот ( эти методы должны использовать
+		публичные getStand, setStand у публичного метода getStand(type),
+		setStand(newVal, type) - тип километры/мили
+<br>
+		var q = new Car('model', 1000, 'km', 500, 'Basil')
+	</li>
+</ol>
+</body>
+</html>

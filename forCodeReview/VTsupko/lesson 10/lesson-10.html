@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script type="text/javascript">
+		/**/
+		window.onload = function () {
+			var htmlEl = document.getElementsByTagName('html')[0],
+				screen = '';
+
+			screen = getScreenSize();
+			addCssClass (screen, htmlEl);
+
+
+		};
+
+
+		console.log(navigator.userAgent);
+		console.log(navigator.appCodeName);
+		console.log('___________________________');
+
+		function getScreenSize() {
+				"use strict";
+				var screenSize,
+						width,
+						height;
+				if (screen.width) {
+					width = (screen.width) ? screen.width : '';
+					height = (screen.height) ? screen.height : '';
+					screenSize = '' + width + "x" + height;
+				}
+				return screenSize;
+			}
+
+		function addCssClass(className, element) {
+			element.classList.add(className);
+		}
+
+		function removeCssClass(className, element) {
+			element.classList.remove(className);
+		}
+
+
+	</script>
+</head>
+<body>
+<h3 style="padding: 10px;">lesson 10</h3>
+<ol>
+	<li>написать функцию которая определяет версию браузера и версию, версию операционной системы</li>
+	<li>написать функции - addCssClass(className, element) и removeCssClass(className, element);</li>
+	<li>используя предидущие функции написать еще одну - которая будет добавлять цсс класс
+		( например class="ie ie9 windows" или "firefox linux linux_x64_86") для html тега при загрузке страницы,
+		класс с разрешением екрана ( значение находится в обьекте screen )</li>
+</ol>
+<code>
+<ul>
+	<li>safari - userAgent: "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2"</li>
+	<li>chrome - userAgent: "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36"</li>
+	<li>firefox- userAgent: "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0"</li>
+</ul>
+</code>
+<hr>
+<button onclick="showBrowVer()">Определить браузер</button>
+
+<script type="text/javascript">
+	//http://www.xiper.net/collect/js-plugins/browser-detect/browser-name-and-version.html
+	function browserDetectNav(chrAfterPoint) {
+		var
+				UA = window.navigator.userAgent,       // содержит переданный браузером юзерагент
+		//--------------------------------------------------------------------------------
+				OperaB = /Opera[ \/]+\w+\.\w+/i,     //
+				OperaV = /Version[ \/]+\w+\.\w+/i,   //
+				FirefoxB = /Firefox\/\w+\.\w+/i,     // шаблоны для распарсивания юзерагента
+				ChromeB = /Chrome\/\w+\.\w+/i,       //
+				SafariB = /Version\/\w+\.\w+/i,      //
+				IEB = /MSIE *\d+\.\w+/i,             //
+				SafariV = /Safari\/\w+\.\w+/i,       //
+		//--------------------------------------------------------------------------------
+				browser = new Array(),               //массив с данными о браузере
+				browserSplit = /[ \/\.]/i,           //шаблон для разбивки данных о браузере из строки
+				OperaV = UA.match(OperaV),
+				Firefox = UA.match(FirefoxB),
+				Chrome = UA.match(ChromeB),
+				Safari = UA.match(SafariB),
+				SafariV = UA.match(SafariV),
+				IE = UA.match(IEB),
+				Opera = UA.match(OperaB);
+
+		//----- Opera ----
+		if ((!Opera == "") & (!OperaV == "")) browser[0] = OperaV[0].replace(/Version/, "Opera")
+		else if (!Opera == "")    browser[0] = Opera[0]
+		else
+		//----- IE -----
+		if (!IE == "") browser[0] = IE[0]
+		else
+		//----- Firefox ----
+		if (!Firefox == "") browser[0] = Firefox[0]
+		else
+		//----- Chrom ----
+		if (!Chrome == "") browser[0] = Chrome[0]
+		else
+		//----- Safari ----
+		if ((!Safari == "") && (!SafariV == "")) browser[0] = Safari[0].replace("Version", "Safari");
+//------------ Разбивка версии -----------
+
+		var
+				outputData;                                      // возвращаемый функцией массив значений
+		// [0] - имя браузера, [1] - целая часть версии
+		// [2] - дробная часть версии
+		if (browser[0] != null) outputData = browser[0].split(browserSplit);
+		if ((chrAfterPoint == null) && (outputData != null)) {
+			chrAfterPoint = outputData[2].length;
+			outputData[2] = outputData[2].substring(0, chrAfterPoint); // берем нужное ко-во знаков
+			return(outputData);
+		}
+		else return(false);
+	}
+
+
+	// скриптик будет вызывать нашу функцию определения
+// и выводить результат
+function showBrowVer() {
+	var data = browserDetectNav();
+ 	//вызываем функцию, параметр НЕ передаем,
+	//поэтому в результате получим все знаки версии после запятой
+	var htmlEl = document.getElementsByTagName('html')[0];
+	var browserName = data[0];
+	var browserVersion = data [1] + '.' + data[2];
+	addCssClass(browserName, htmlEl);
+	addCssClass(browserVersion, htmlEl);
+
+//	alert("Браузер: " + data[0] + ", Версия: " + data[1] + "." + data[2]); //выводим результат
+}
+
+</script>
+
+</body>
+</html>

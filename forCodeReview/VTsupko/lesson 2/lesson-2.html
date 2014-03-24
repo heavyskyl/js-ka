@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+		/*написать рекурсивную функцию которая возводит число x в степень y*/
+		function factorial(n) {
+			"use strict";
+			if (n >= 0) {
+				var result = 1;
+				while (n > 0) {
+					result = result * n;
+					n--;
+				}
+				return result;
+			}
+			return n;
+		}
+
+		/*написать рекурсивную функцию которая подсчитывает n-е число фибоначчи*/
+		function fib(n){
+			"use strict";
+			if (n == 0) {
+				return 0;
+			} else{
+				if ((n == -1) || (n == 1)) {
+					return 1;
+				} else {
+					if (n > 0) {
+						return fib(n - 1) + fib(n - 2);
+					} else {
+						return fib(n + 2) - fib(n + 1);
+					}
+				}
+			}
+		}
+
+		function fibonachi2(n) {
+			"use strict";
+			var a = 1, b = 1;
+			for (var i = 3; i <= n; i++) {
+				var c = a + b;
+				a = b;
+				b = c;
+			}
+			console.log(b);
+//			return b;
+		}
+
+		/*написать функцию которая исчет количество пробелов в строке*/
+		function spaceInRow(n){
+			"use strict";
+			var arr = n.match(/\s/g).length;
+			console.log(arr);
+		}
+
+		/*написать функцию которая возвращает массив подстрок разделенных пробелом в строке*/
+		function arrOfText(n){
+			"use strict";
+			var str = n.split(/\s/g);
+			console.log(str)
+		}
+	</script>
+</head>
+<body>
+<h3>lesson 2</h3>
+<ol>
+	<li>factorial(n) - написать рекурсивную функцию которая возводит число x в степень y</li>
+	<li>fibonachi(n) - написать рекурсивную функцию которая подсчитывает n-е число фибоначчи</li>
+	<li>spaceInRow(n) - написать функцию которая исчет количество пробелов в строке</li>
+	<li>arrOfText(n) - написать функцию которая возвращает массив подстрок разделенных пробелом в строке</li>
+</ol>
+</body>
+</html>

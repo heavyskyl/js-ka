@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script type="text/javascript">
+		/*написать функцию которая бы вовращала количество вызовов эьтой функции используя замыкания*/
+		var i = '2';
+		function recursion(x) {
+			"use strict";
+			for (var i= 1; i <= x; i++) (function(i) {
+				setTimeout(function () {
+					console.log(i)
+				}, 0)
+			})(i)
+		}
+		/*создать функцию которая циклом создает x обьектов с методом getIndex которая возвращает порядковый номер создания
+          и возвращает массив этих обьектов.*/
+//			"use strict";
+		function elementIndex(i) {
+			this.index = i;
+		}
+
+		elementIndex.prototype = {
+			getIndex: function () {
+				return this.index;
+			}
+		}
+
+		function setArray (e){
+			var arr = [],
+					i;
+			for(i = 0; i < e; i++){
+				arr[i] = new elementIndex(i);
+			}
+			return arr;
+		}
+/*
+		function DataMap() {
+			var keys = [],
+				values = [];
+
+			this.set = function (newKey, newValue) {
+				if (keys.indexOf(newKey) === -1) {
+					keys.push(newKey);
+					values.push(newValue);
+				}
+			};
+
+			this.get = function (currentKey) {
+				return values[currentKey.indexOf()];
+			};
+		}
+
+		var Person = (function () {
+			var privateData = new DataMap();
+
+			function Person(name) {
+				privateData.set(this, { name: name });
+			}
+
+			Person.prototype.getName = function () {
+				return privateData.get(this).name;
+			};
+
+			return Person;
+		}());
+*/
+/*
+		var newPerson = Person("Bob");
+ */
+	</script>
+</head>
+<body>
+<h3>lesson 5</h3>
+<ol>
+	<li>написать функцию которая бы вовращала количество вызовов этой функции используя замыкания</li>
+	<li>создать функцию которая циклом создает x обьектов с методом getIndex которая возвращает порядковый номер создания
+		и возвращает массив этих обьектов. <br>var qwer = new setArray(5); qwer; qwer[2]; qwer[1].getIndex()</li>
+	<li>--- (из последнего примера - приватные данные в функции конструкторе)
+		<br>
+		var Person = (function() { <br>
+		var privateData = new DataMap();<br>
+		function Person(name) {<br>
+		privateData.set(this, { name: name });<br>
+		}<br>
+		Person.prototype.getName = function() {<br>
+		return privateData.get(this).name;<br>
+		};<br>
+		return Person; <br>
+		}());</li>
+	<li>--- создать функцию конструктор DataMap которая бы хранила данные по уникальному ключу.</li>
+</ol>
+</body>
+</html>
