@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PopUp</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/main.js"></script>
+</head>
+<body>
+
+	<a class="please" data-popUp="data" href="javascript:;">Open</a>
+
+	<div id="data">
+		<p>Success!</p>
+	</div>
+
+	<div class="fade">
+		<div class="popUpWrapper">
+			<div class="header">
+                <p>Header</p>
+				<a href="javascript:;" class="close">x</a>
+			</div>
+			<div class="inner"></div>
+		</div>
+	</div>
+
+    <script>
+        new PopUp({
+            button: '.please',
+            wrapper: '.fade'
+        });
+    </script>
+</body>
+</html>
