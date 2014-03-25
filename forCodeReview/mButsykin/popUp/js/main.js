@@ -71,7 +71,7 @@ PopUp.prototype = {
             fun = Math.floor(Math.random() * (animations.length));
 
         this.setCssStyle(this.popUpWrapperSelector, 'display', 'block');
-       // move(elem, animations[fun], 1000, (window.innerHeight / 2 - document.querySelector(this.popUpWrapperSelector).offsetHeight));
+        move(elem, animations[fun], 1000, (window.innerHeight / 2 ));
     },
     hide: function() {
         var elem = document.getElementsByClassName('popUpWrapper')[0],
