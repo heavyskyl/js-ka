@@ -1,5 +1,4 @@
 
-
 var popupModule = (function(){
     var titleMod = "Filozoa",
         bodyMod = "The ancestral opisthokont cell is assumed to have possessed slender filose (thread-like) projections or 'tentacles'. In some opisthokonts (Mesomycetozoa and Corallochytrium) these were lost. They are retained in Filozoa, where they are simple and non-tapering, with a rigid core of actin bundles (contrasting with the flexible, tapering and branched filopodia of nucleariids and the branched rhizoids and hyphae of fungi). In choanoflagellates and in the most primitive animals, namely sponges, they aggregate into a filter-feeding collar around the cilium or flagellum; this is thought to be an inheritance from their most recent common filozoan ancestor.";
@@ -19,9 +18,9 @@ var popupModule = (function(){
             document.body.appendChild(container);        
         }
     }
-})();
+})(),
 
-var styleModyle = (function(){
+    styleModule = (function(){
         
         return{
             setStyle: function(el, property ,value) {
@@ -41,9 +40,9 @@ var styleModyle = (function(){
                     element.style.left = wid / 4;
             }
         }
-    })();
+})(),
 
-var eventModyle = (function(){
+    eventModule = (function(){
     
     return{
         addNewEventListener: function(action, element, func) {
@@ -67,16 +66,16 @@ var eventModyle = (function(){
         },
         
         hide: function(el) {
-            styleModyle.setStyle(el, 'display', 'none');
+            styleModule.setStyle(el, 'display', 'none');
         },
                 
         show: function(el){
-            styleModyle.setStyle(el, 'display', 'block');            
+            styleModule.setStyle(el, 'display', 'block');            
         }
     }
-    })();
+})(),
     
-var animationModyle = (function() {
+    animationModule = (function() {
     
     return{
         animate: function(opts) {
@@ -102,30 +101,30 @@ var animationModyle = (function() {
             return 1 - Math.sin(Math.acos(progress))
         }       
     }
-})();  
+})(),  
     
-var manipulationModyle = (function() {
+    manipulationModule = (function() {
     
     return {
         move: function(elem, delta, duration) {
-                var to = window.innerHeight / 4;
-                               
-                animationModyle.animate({
-                  delay: 10,
-                  duration: duration,
-                  delta: delta,
-                  step: function(delta) {
-                    elem.style.top = to*delta + "px";            
-                  }
-                });      
-            },
+            var to = window.innerHeight / 4;                
+                           
+            animationModule.animate({
+              delay: 10,
+              duration: duration,
+              delta: delta,
+              step: function(delta) {
+                elem.style.top = to*delta + "px";            
+              }
+            });      
+        },
             
         vanish: function(elem, delta, duration) {
             var to = 1000,
                 minTo = -1000,
                 random = Math.random();
             
-            animationModyle.animate({
+            animationModule.animate({
               delay: 10,
               duration: duration,
               delta: delta,
@@ -139,56 +138,56 @@ var manipulationModyle = (function() {
             });                 
         }
     }
-})();
+})(),
 
-var MainModyle = (function(){
+    MainModule = (function(){
     
     function hideContainer() {       
-        eventModyle.hide("blackBG");
-        styleModyle.setStyle("modal", 'opacity', 1);
+        eventModule.hide("blackBG");
+        styleModule.setStyle("modal", 'opacity', 1);
     }
     
     function showContainer() {
-        eventModyle.show("container");
+        eventModule.show("container");
         
     }
     
     function resizeModal() {
-        styleModyle.redraw("modal");      
+        styleModule.redraw("modal");      
     }
     
    function randomMove() {
         var ran = Math.random()*10;
         
         if(0 < ran < 0.3) {
-            return animationModyle.linear;
+            return animationModule.linear;
         } else if(0.3 < ran < 0.9) {
-            return animationModyle.quad;
+            return animationModule.quad;
         } else {
-            return animationModyle.circ;
+            return animationModule.circ;
         }
-   }  
-    
-    
-    popupModule.showMessage();
-    
-    eventModyle.addNewEventListener("click", document.getElementById("ok"), showContainer);    
-    eventModyle.addNewEventListener("resize", window, resizeModal);
-    
-    document.getElementById('ok').onclick = function(e) {
+   }
+   
+   function moveDown(){
         var elem = document.getElementById('modal');
         
-        eventModyle.show("blackBG");
-        manipulationModyle.move(elem, randomMove, 500);
-    }
-    
-    document.getElementById('close').onclick = function(e) {
+        eventModule.show("blackBG");
+        manipulationModule.move(elem, randomMove, 500);
+   }
+   
+   function vanishPopup(){
         var elem = document.getElementById('modal');
         var random = Math.random();
         
-        styleModyle.setStyle("modal", 'opacity', random);
-        manipulationModyle.vanish(elem, randomMove, 1000);
-        setTimeout(hideContainer, 600);       
-    }
+        styleModule.setStyle("modal", 'opacity', random);
+        manipulationModule.vanish(elem, randomMove, 1000);
+        setTimeout(hideContainer, 600);
+   }  
+    
+    popupModule.showMessage();    
+       
+    eventModule.addNewEventListener("resize", window, resizeModal);    
+    eventModule.addNewEventListener("click", document.getElementById('ok'), moveDown);
+    eventModule.addNewEventListener("click", document.getElementById('close'), vanishPopup);   
 })();
     
