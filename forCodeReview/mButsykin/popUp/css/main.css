@@ -1,0 +1,59 @@
+.fade{
+    position: fixed;
+    display: none;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1000;
+}
+
+.popUpWrapper{
+    box-shadow: 6px 6px 2px 0px rgba(0, 0, 0, 1);
+    background: #fff;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    min-width: 200px;
+    text-align: left;
+}
+
+.popUpWrapper .header{
+	border-bottom: 1px solid #f00;
+	height: 20px;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 5px 10px;
+}
+
+.header p, .header a {
+    display: inline-block;
+    color: #000;
+}
+
+.header p{
+    margin: 0;
+}
+
+.header a{
+    float: right;
+    border: 1px solid #000;
+    text-decoration: none;
+    padding: 0 5px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.header a:hover{
+    background: #C0C0C0;
+    color: #fff;
+}
+
+#data {
+	display: none;
+}
