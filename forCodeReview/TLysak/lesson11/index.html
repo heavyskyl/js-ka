@@ -1,0 +1,293 @@
+<html>
+<head>
+<title>Lesson 11 homework</title>
+	<style>
+		.ie{
+			color : red;	
+		}
+			
+		.chrome{
+			color : blue;
+		}
+
+		.opera{
+			color : green;
+		}
+		
+		#clear{
+			margin: 0;
+			padding: 0;
+			float: auto;
+		}
+
+		#popup {
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index: 100;
+			position: absolute;
+		}
+		
+		#windowBody {		
+			border: 3px double black;	
+			z-index: 110;
+			position: fixed;
+			padding: 0.5%;
+			background-color: white;
+		}
+
+		#topPane {
+			padding-bottom:1%;
+		}
+
+		#clickHere {
+			cursor : pointer ;
+		}
+
+		#box {
+			background-color: black;
+		}
+
+	</style>
+</head>
+
+<body id="clear">
+	</div>
+	<div id="content" align = "center">
+		<span id="whoIsText">This is place to see the who is who</span><br/>
+		<span id="clickHere"><font color="red">Click here for popup!</font></span>
+		<!--span id="clickHereForMove"><font color="red">Click here for move!</font></span>
+		<div id="box" width="100px" height="100px"> <font color="white">wers</font></div-->	
+	</div>
+	
+
+	<script>
+Event = (function() {
+  var guid = 0
+     
+  function fixEvent(event) {
+    event = event || window.event
+   
+    if ( event.isFixed ) {
+      return event
+    }
+    event.isFixed = true
+  
+    event.preventDefault = event.preventDefault || function(){this.returnValue = false}
+    event.stopPropagation = event.stopPropagaton || function(){this.cancelBubble = true}
+
+    if (!event.target) {
+        event.target = event.srcElement
+    }
+
+    if (!event.relatedTarget && event.fromElement) {
+        event.relatedTarget = event.fromElement == event.target ? event.toElement : event.fromElement;
+    }
+
+    if ( event.pageX == null && event.clientX != null ) {
+
+        var html = document.documentElement, body = document.body;
+        event.pageX = event.clientX + (html && html.scrollLeft || body && body.scrollLeft || 0) - (html.clientLeft || 0);
+        event.pageY = event.clientY + (html && html.scrollTop || body && body.scrollTop || 0) - (html.clientTop || 0);
+    }
+
+    if ( !event.which && event.button ) {
+        event.which = (event.button & 1 ? 1 : ( event.button & 2 ? 3 : ( event.button & 4 ? 2 : 0 ) ));
+    }
+
+    return event
+  } 
+
+  function commonHandle(event) {
+    event = fixEvent(event)
+
+    var handlers = this.events[event.type]
+
+    for ( var g in handlers ) {
+      var handler = handlers[g]
+
+      var ret = handler.call(this, event)
+      if ( ret === false ) {
+          event.preventDefault()
+          event.stopPropagation()
+      }
+    }
+  }
+
+  return {
+    add: function(elem, type, handler) {
+      if (elem.setInterval && ( elem != window && !elem.frameElement ) ) {
+        elem = window;
+      }
+
+      if (!handler.guid) {
+        handler.guid = ++guid
+      }
+      if (!elem.events) {
+        elem.events = {}
+        elem.handle = function(event) {
+          if (typeof Event !== "undefined") {
+            return commonHandle.call(elem, event)
+          }
+        }
+      }
+       
+  if (!elem.events[type]) {
+
+        elem.events[type] = {}       
+
+        if (elem.addEventListener)
+          elem.addEventListener(type, elem.handle, false)
+        else if (elem.attachEvent)
+          elem.attachEvent("on" + type, elem.handle)
+      }
+
+      elem.events[type][handler.guid] = handler
+    },
+
+    remove: function(elem, type, handler) {
+      var handlers = elem.events && elem.events[type]
+
+      if (!handlers) return
+
+      delete handlers[handler.guid]
+
+      for(var any in handlers) return
+      if (elem.removeEventListener)
+        elem.removeEventListener(type, elem.handle, false)
+      else if (elem.detachEvent)
+        elem.detachEvent("on" + type, elem.handle)
+
+      delete elem.events[type]
+
+      for (var any in elem.events) return
+      try {
+        delete elem.handle
+        delete elem.events
+      } catch(e) { // IE
+        elem.removeAttribute("handle")
+        elem.removeAttribute("events")
+      }
+    }
+  }
+}())
+
+		window.onload = function(){
+			(function() {
+				var initialised = false,
+				    popupActive = false;
+				function setClass(element, key, value) {
+					element.style[key] = value;	
+				}	
+				
+				function hide(element) { setClass(element, 'display', 'none') }			
+				function show(element) { setClass(element, 'display', 'block') }
+				
+				function placeAtCenterWidth(element) {
+					element.style.left = (document.body.offsetWidth - element.offsetWidth)/2;
+				}
+
+				function getCenterHeightPointToPlaceElement(element) {
+					return (document.body.offsetHeight - element.offsetHeight)/2;
+				}
+
+				function init() {
+					var body = document.body;
+					var popup = document.createElement('div');
+					popup.id = 'popup';
+					var windowBody = document.createElement('div');
+					windowBody.id = 'windowBody';
+					var topPane = document.createElement('div');
+					topPane.id = 'topPane';
+					topPane.align = 'right';
+					var close = document.createElement('img');
+					close.id = 'closeIcon';					
+					close.src = 'close.png';
+					close.width='15';
+					topPane.appendChild(close);
+					var windowContent = document.createElement('div');
+					windowContent.id = 'windowContent';
+					var message = document.createElement('span');
+					message.id = 'popUpMessage';
+					windowContent.appendChild(message);
+					windowBody.appendChild(topPane);
+					windowBody.appendChild(windowContent);
+					popup.appendChild(windowBody);
+					body.insertBefore(popup, body.firstChild);
+					Event.add(document.getElementById('closeIcon'), 'click', hidePopup);	
+					initialised = true;						
+				}	
+				
+				function hidePopup() {
+					moveDown({
+						to : document.body.offsetHeight*0.8,
+						elem : document.getElementById('windowBody'),
+						delta : linear,
+						duration : 1000				
+					}, function() {hide(document.getElementById('popup'))});
+					popupActive = false;	
+				}
+
+				function animate(opts) {
+					var start = new Date;
+					var timer = setInterval(function() {
+						var progress = (new Date - start) / opts.duration;
+						if (progress > 1) progress = 1;
+						opts.step( opts.delta(progress) );
+						if (progress == 1) {
+						  clearInterval(timer);
+						  if(opts.callback)opts.callback();
+						}
+					}, opts.delay || 10);
+				}
+
+				function moveDown(props, callback) {
+				  var to = props.to;
+				  console.log(props);
+				  animate({
+				    delay: 10,
+				    duration: props.duration || 1000,
+				    delta: props.delta,
+				    step: function(delta) {
+					var startHeight = props.elem.style.top.split("px")[0];
+					var count = (startHeight + ((to - startHeight) * delta));
+					console.log('|' + startHeight + '|');
+				        props.elem.style.top = count + "px";
+				    },
+				    callback : callback
+				  });
+
+				}
+				
+				function linear(progress) {
+				  return progress;
+				}
+
+				function showPopup(message) {
+					if(!initialised) {
+						init();					
+					}
+					if(message) {
+						document.getElementById('popUpMessage').textContent = message;
+					}					
+					show(document.getElementById('popup'));
+					var modal = document.getElementById('windowBody');
+					placeAtCenterWidth(modal);
+					moveDown({
+						to : getCenterHeightPointToPlaceElement(modal),
+						elem : modal,
+						delta : linear,
+						duration : 1000
+					});
+					popupActive = true;
+				}
+				
+				
+
+				Event.add(document.getElementById('clickHere'), 'click', function(){showPopup("There is no way of passing a method as argument or returning a method body for that instance.")});
+				
+			})();
+		}
+	</script>
+</body>
+</html>
