@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Test Page</title>
+    <script>
+        var MYAPP = {};
+        
+        MYAPP.namespace = function (ns_string) { 
+            var parts = ns_string.split('.'), 
+                parent = MYAPP, 
+                i;
+                
+            if (parts[0] === "MYAPP") { 
+            parts = parts.slice(1); 
+            }
+         
+            for (i = 0; i < parts.length; i += 1) {
+               if (typeof parent[parts[i]] === "undefined") { 
+                   parent[parts[i]] = {}; 
+                } 
+               parent = parent[parts[i]]; 
+            } 
+            return parent; 
+        }; 
+    </script>
+</head>
+<body>
+      <input id="ok" type="button" value="Open Popup">    
+</body>
+    
+    <script type="text/javascript" src="popupModule.js"></script>
+    <script type="text/javascript" src="manipulationModule.js"></script>
+    <script type="text/javascript" src="animationModule.js"></script> 
+    <script type="text/javascript" src="eventModule.js"></script>
+    <script type="text/javascript" src="styleModule.js"></script>
+    <script type="text/javascript" src="js_13.js"></script>
+          
+</html>
+

@@ -1,0 +1,43 @@
+.redRect{            
+            position: relative;
+            top: 30px;
+            left:50px;
+            display: block;
+            width: 150px;
+            height: 100px;
+            border: 2px solid black;
+            background: #ffaaaa;            
+}
+        
+.blueRect{
+            position: relative;
+            top: 100px;
+            left:50px;
+            display: block;
+            width: 120px;
+            height: 100px;
+            border: 2px solid black;
+            background: #76cefe;
+}
+
+.yellowRect{
+            position: relative;
+            top: 160px;
+            left:50px;
+            display: block;
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background: #ffff35;
+}
+
+.bigRect{
+            position: absolute;
+            top: 50px;
+            left:400px;
+            display: block;
+            width: 200px;
+            height: 400px;
+            border: 2px solid black;
+            background: #c0c0c0;
+}
