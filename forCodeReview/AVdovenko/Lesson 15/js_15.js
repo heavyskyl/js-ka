@@ -1,3 +1,47 @@
+ var observerable = {
+ 
+  listeners : {},
+   
+  addListener : function(object, evt, callback) {
+   
+    if ( !this.listeners.hasOwnProperty(evt) ) {
+     
+      this.listeners[evt] = [];
+    }       
+     
+    this.listeners[evt].push(object[callback]);
+     
+  },
+   
+  removeListener : function(object, evt, callback) {
+   
+    if ( this.listeners.hasOwnProperty(evt) ) {
+      var i,length; 
+       
+      for (i = 0, length = this.listeners[evt].length; i < length; i += 1) {
+       
+        if( this.listeners[evt][i] === object[callback]) {
+         
+          this.listeners[evt].splice(i, 1);
+        }
+      } 
+    }
+  },
+   
+  triggerEvent : function(evt, args) {
+   
+    if ( this.listeners.hasOwnProperty(evt) )    {                  
+      var i,length;                     
+       
+      for (i = 0, length = this.listeners[evt].length; i < length; i += 1) {
+       
+         this.listeners[evt][i](args);
+      }         
+    }                           
+  } 
+};
+
+
 
 var popupModule = (function(){
     var titleMod = "Filozoa",
@@ -69,8 +113,8 @@ var popupModule = (function(){
             styleModule.setStyle(el, 'display', 'none');
         },
                 
-        show: function(el){
-            styleModule.setStyle(el, 'display', 'block');            
+        show: function(el){            
+            styleModule.setStyle(el, 'display', 'block'); 
         }
     }
 })(),
@@ -135,7 +179,7 @@ var popupModule = (function(){
                     elem.style.top = minTo*delta + "px";
                 }
               }
-            });                 
+            });              
         }
     }
 })(),
@@ -153,7 +197,8 @@ var popupModule = (function(){
     }
     
     function resizeModal() {
-        styleModule.redraw("modal");      
+        styleModule.redraw("modal");
+        observerable.triggerEvent("centered", {message : "new size for popup!"});
     }
     
    function randomMove() {
@@ -171,23 +216,87 @@ var popupModule = (function(){
    function moveDown(){
         var elem = document.getElementById('modal');
         
-        eventModule.show("blackBG");
+        observerable.triggerEvent("beforeShow", {message : "hello"});
+        
+        eventModule.show("blackBG");       
         manipulationModule.move(elem, randomMove, 500);
+        
+        observerable.triggerEvent("afterShow", {message : "goodbye"});
+       
    }
    
    function vanishPopup(){
         var elem = document.getElementById('modal');
         var random = Math.random();
         
+        observerable.triggerEvent("beforeClose", {message : "hi"});
+        
         styleModule.setStyle("modal", 'opacity', random);
         manipulationModule.vanish(elem, randomMove, 1000);
+     
         setTimeout(hideContainer, 600);
-   }  
+        
+        observerable.triggerEvent("afterClose", {message : "bye"});
+       
+   }
+   
+   var beforeShow = {
+        callBackOne : function(e) {        
+        styleModule.setStyle("ok", 'opacity', "0");        
+       
+        console.log("beforeShow: " + e.message);        
+        }   
+    };
+    
+     
+    var afterShow = {
+      callBackOne : function(e) {
+        styleModule.setStyle("close", 'background', "brown");
+        styleModule.setStyle("close", 'color', "white");
+        styleModule.setStyle("close", 'border-color', "black");
+        
+        console.log("afterShow: " + e.message);
+        observerable.removeListener( afterShow, "afterShow", "callBackOne");
+      }       
+    };
+    
+    var beforeClose = {
+      callBackOne : function(e) {
+        styleModule.setStyle("close", 'background', "orange");
+               
+        console.log("beforeClose: " + e.message);
+      }   
+    };
+     
+    var afterClose = {
+      callBackOne : function(e) {
+        styleModule.setStyle("ok", 'opacity', "1");
+        styleModule.setStyle("close", 'border-color', "brown");
+        styleModule.setStyle("close", 'color', "brown");
+        
+        console.log("afterClose: " + e.message);
+      }       
+    };
+    
+    var centered = {
+      callBackOne : function(e) {
+        styleModule.setStyle("close", 'width', "25%");
+        
+        console.log("centered: " + e.message);
+      }       
+    };
     
     popupModule.showMessage();    
        
     eventModule.addNewEventListener("resize", window, resizeModal);    
     eventModule.addNewEventListener("click", document.getElementById('ok'), moveDown);
     eventModule.addNewEventListener("click", document.getElementById('close'), vanishPopup);   
-})();
+        
+    observerable.addListener( beforeShow, "beforeShow", "callBackOne");
+    observerable.addListener( afterShow, "afterShow", "callBackOne");
     
+    observerable.addListener( beforeClose, "beforeClose", "callBackOne");
+    observerable.addListener( afterClose, "afterClose", "callBackOne");
+    
+    observerable.addListener( centered, "centered", "callBackOne");
+})();

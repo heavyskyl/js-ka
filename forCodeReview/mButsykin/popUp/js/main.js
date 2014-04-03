@@ -1,3 +1,14 @@
+SandBox.add('new-module', function(box) {
+    function newModule() {
+    }
+
+    box.newModule = newModule;
+}, {requires: ['*']});
+
+SandBox('new-module', function(box) {
+    new box.newModule();
+});
+
 function animate(opts) {
     var start = new Date;
     var timer = setInterval(function() {
