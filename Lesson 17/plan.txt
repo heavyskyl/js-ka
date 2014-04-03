@@ -13,6 +13,8 @@ http://ejohn.org/blog/javascript-micro-templating/
 
 напомнить о eval, способы создания функции
 
+file:///home/vtkachenko/Programming/Workspaces/JSKA/Lesson%2017/index.html
+
 document.getElementById('users-tpl').innerHTML // all html
 
      "<% for ( var i = 0; i < users.length; i++ ) { %>
