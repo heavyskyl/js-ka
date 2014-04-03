@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="temp.js"></script>
+        <script type="text/template" id="users-tpl">
+            <% for ( var i = 0; i < users.length; i++ ) { %>
+                <li><a href="<%=users[i].url%>"><%=users[i].name%></a></li>
+            <% } %>
+        </script>
+    </head>
+    <body>
+        <div id="content"></div>
+
+        <script type="text/javascript">
+            document.getElementById('content').innerHTML = tmpl(document.getElementById('users-tpl').innerHTML, {
+                users : [
+                    {
+                        name : 'Vova',
+                        url : 'qwe'
+                    },
+                    {
+                        name : 'Alex',
+                        url : 'eqw'
+                    }
+                ]
+            })
+        </script>
+
+    </body>
+</html>

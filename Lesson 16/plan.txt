@@ -1,0 +1,9 @@
+на самостоятельное изучение jQuery/YUI Node API
+http://www.jsrosettastone.com/
+
+
+
+ДЗ
+при изменении значения в селектах ( width/height/opacity/etc и EasyIn, EasyOut, etc.) анимируется блок справа
+
+сделать на jQuery и на YUI
