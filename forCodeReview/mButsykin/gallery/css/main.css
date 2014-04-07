@@ -1,0 +1,67 @@
+.wrapper{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    width: 80%;
+}
+
+.wrapper .images{
+    display: block;
+    margin: 0 auto;
+}
+
+.wrapper .images img{
+    cursor: pointer;
+    height: 150px;
+    margin: 5px;
+    width: 200px;
+}
+
+.gallery{
+    display: none;
+    background: rgba(0, 0, 0, 0.7);
+    left: 0; right: 0;
+    bottom: 0; top: 0;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.gallery .image, .gallery .leftArrow, .gallery .rightArrow{
+    display: block;
+    float: left;
+    height: 100%;
+    width: 15%;
+}
+
+.gallery .image{
+    width: 70%;
+}
+
+.gallery .leftArrow, .gallery .rightArrow{
+    text-align: center;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+.gallery .leftArrow a, .gallery .rightArrow a {
+    color: #a0a0a0;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+}
+.gallery .leftArrow a:hover, .gallery .rightArrow a:hover{
+    color: #fff;
+}
+
+.gallery .image img{
+    height: 100%;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
