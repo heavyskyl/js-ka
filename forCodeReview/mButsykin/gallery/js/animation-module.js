@@ -8,56 +8,48 @@ SandBox.add('animation-module', function(A) {
     }
 
     function circ(progress) {
-        return 1 - Math.sin(Math.acos(progress))
     }
 
-    function Animate() {
-        this.animations = [linear, quad, circ];
-    }
+    var Animatinon = function(selector, cssRules, duration, callback, low) {
+        var start = new Date(),
+            $obj = (typeof selector === 'string') ? A.dom.one(selector) : selector,
+            where = {},
+            delta = low || '';
 
-    Animate.prototype = {
-        startAnimation: function(opts) {
-            var start = new Date;
-            var timer = setInterval(function() {
-                var progress = (new Date - start) / opts.duration;
-
-                if (progress > 1) progress = 1;
-                opts.step( opts.delta(progress) );
-                if (progress == 1) {
-                    clearInterval(timer);
-                    opts.callback();
-                }
-
-            }, opts.delay || 10);
-        },
-        move: function (elem, delta, duration, where, callback) {
-            var to = where;
-            this.startAnimation({
-                delay: 10,
-                duration: duration || 1000,
-                delta: delta,
-                step: function(delta) {
-                    elem.style.top = to * delta + "px";
-                },
-                callback: callback || function() {}
-            });
-        },
-        moveRandom: function (elem, duration, where, callback) {
-            var to = where;
-            var fun = Math.floor(Math.random() * this.animations.length);
-            var currentTop = elem.getBoundingClientRect().top;
-
-            this.startAnimation({
-                delay: 10,
-                duration: duration || 1000,
-                delta: this.animations[fun],
-                step: function(delta) {
-                    elem.style.top = Math.abs(currentTop - to * delta) + "px";
-                },
-                callback: callback || function() {}
-            });
+        if(Object.prototype.toString.call(delta) !== '[object Function]') {
+            delta = function (pr) {
+                return pr;
+            };
         }
+
+        for(i in cssRules) {
+            if(cssRules.hasOwnProperty(i)) {
+                where[i] = getComputedStyle($obj)[i];
+            }
+        }
+
+        var timer = setInterval(function animate() {
+            var progress = (new Date() - start) / duration,
+                i;
+
+            for(i in cssRules) {
+                if(cssRules.hasOwnProperty(i)) {
+                    if(i !== 'opacity')
+                        $obj.style[i] = delta(progress) * (cssRules[i] - parseInt(where[i])) + parseInt(where[i]) + 'px';
+                    else
+                        $obj.style[i] = delta(progress) * (cssRules[i] - parseFloat(where[i])) + parseFloat(where[i]);
+                }
+            }
+
+            if(progress > 1) {
+                clearInterval(timer);
+                if(callback) {
+                    callback();
+                }
+            }
+        }, 10);
     };
-    A.Animate = Animate;
+
+    A.animation = Animatinon;
 
 }, {requires: ['dom-module']});
