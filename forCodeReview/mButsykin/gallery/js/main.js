@@ -1,5 +1,8 @@
 SandBox('gallery-module', function(A) {
-    var gallery = new A.Gallery({images: '.images', gallery: '.gallery'});
+    var gallery = new A.Gallery({
+        images: '.images',
+        gallery: '.gallery'
+    });
 
     gallery.on('prev image', function() {console.log(console.log('prev image'));});
     gallery.on('hide gallery', function() {console.log(console.log('hide gallery'));});
