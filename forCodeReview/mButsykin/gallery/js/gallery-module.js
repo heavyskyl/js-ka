@@ -13,10 +13,10 @@ SandBox.add('gallery-module', function(A) {
             var i,
                 $images = A.dom.all(this.imagesWrapperSelector + ' ' + 'img');
 
-            this.images = [];
+            this.images = new A.List();
 
             for(i = 0; i < $images.length; i++) {
-                this.images.push($images[i].getAttribute('src'));
+                this.images.add($images[i].getAttribute('src'));
             }
 
             this.handlers();
@@ -29,43 +29,24 @@ SandBox.add('gallery-module', function(A) {
         },
 
         moveLeft: function() {
-            if(this.currentImage !== 0){
-                this.changeImage(this.currentImage - 1);
-                this.events.eventStarted('prev image');
-            }
-            else{
-                this.hide();
-                this.events.eventStarted('first image');
-            }
+            this.changeImage(this.currentImage.prev);
         },
         moveRight: function() {
-            if(this.currentImage !== this.images.length - 1){
-                this.changeImage(this.currentImage + 1);
-                this.events.eventStarted('next image');
-            }
-            else{
-                this.hide();
-                this.events.eventStarted('last image');
-            }
+            this.changeImage(this.currentImage.next);
         },
-        changeImage: function(imgNum) {
+        changeImage: function(img) {
             var $image = A.dom.one(this.gallerySelector + ' ' + '.image img'),
                 that = this;
 
-            if(typeof imgNum !== 'number'){
-                this.currentImage = this.images.indexOf(imgNum);
-            }
-            else{
-                this.currentImage = imgNum;
-            }
+            that.currentImage = img;
 
             A.animation($image, {opacity: 0.2, height: 0}, 100, function() {
-                $image.setAttribute('src', that.images[that.currentImage] + '?' + new Date().getTime());
+                $image.setAttribute('src', that.currentImage.data + '?' + new Date().getTime());
                 A.animation($image, {opacity: 1, height: window.innerHeight}, 500, function() {
                     that.events.eventStarted('image changed');
                 });
             }, function(progress) { // Custom delta function!!!!!!!!!!!!!!!!!!
-                return 1 - Math.sin(Math.acos(progress));
+                return progress;
             });
         },
         show: function() {
@@ -120,7 +101,7 @@ SandBox.add('gallery-module', function(A) {
                 $img[i].addEventListener('click', function(e) {
                     e.preventDefault();
 
-                    that.changeImage(this.getAttribute('src'));
+                    that.changeImage(that.images.get(this.getAttribute('src')));
                     that.show();
                 });
             }
@@ -150,4 +131,4 @@ SandBox.add('gallery-module', function(A) {
     };
 
     A.Gallery = Gallery;
-}, {requires: ['dom-module', 'css-module', 'animation-module', 'handlers-module']});
+}, {requires: ['dom-module', 'css-module', 'animation-module', 'handlers-module', 'list-module']});

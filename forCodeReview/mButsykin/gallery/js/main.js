@@ -1,4 +1,4 @@
-SandBox('gallery-module', function(A) {
+SandBox('gallery-module', 'list-module', function(A) {
     var gallery = new A.Gallery({
         images: '.images',
         gallery: '.gallery'
