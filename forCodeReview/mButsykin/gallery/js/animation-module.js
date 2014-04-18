@@ -3,7 +3,8 @@ SandBox.add('animation-module', function(A) {
         var start = new Date(),
             $obj = (typeof selector === 'string') ? A.dom.one(selector) : selector,
             where = {},
-            delta = low || '';
+            delta = low || '',
+            i;
 
         if(Object.prototype.toString.call(delta) !== '[object Function]') {
             delta = function (pr) {
