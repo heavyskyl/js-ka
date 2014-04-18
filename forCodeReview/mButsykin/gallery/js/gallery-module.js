@@ -40,13 +40,21 @@ SandBox.add('gallery-module', function(A) {
 
             that.currentImage = img;
 
-            A.animation($image, {opacity: 0.2, height: 0}, 100, function() {
-                $image.setAttribute('src', that.currentImage.data + '?' + new Date().getTime());
-                A.animation($image, {opacity: 1, height: window.innerHeight}, 500, function() {
-                    that.events.eventStarted('image changed');
-                });
-            }, function(progress) { // Custom delta function!!!!!!!!!!!!!!!!!!
-                return progress;
+            A.animation($image,
+                {
+                    opacity: 0.2,
+                    height: 0
+                }, 100, function() {
+                    $image.setAttribute('src', that.currentImage.data + '?' + new Date().getTime());
+                    A.animation($image,
+                        {
+                            opacity: 1,
+                            height: window.innerHeight
+                        }, 500, function() {
+                        that.events.eventStarted('image changed');
+                    });
+                }, function(progress) { // Custom delta function!!!!!!!!!!!!!!!!!!
+                    return progress;
             });
         },
         show: function() {
