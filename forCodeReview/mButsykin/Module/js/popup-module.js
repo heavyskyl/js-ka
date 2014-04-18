@@ -1,4 +1,5 @@
 SandBox.add('popup-module', function(A) {
+
     function popUp(cfg) {
         this.openButton = cfg.openSelector;
         this.closeButton = cfg.closeSelector;

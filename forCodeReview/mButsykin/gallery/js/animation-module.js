@@ -1,15 +1,4 @@
 SandBox.add('animation-module', function(A) {
-    function linear(progress) {
-        return progress;
-    }
-
-    function quad(progress) {
-        return Math.pow(progress, 2)
-    }
-
-    function circ(progress) {
-    }
-
     var Animatinon = function(selector, cssRules, duration, callback, low) {
         var start = new Date(),
             $obj = (typeof selector === 'string') ? A.dom.one(selector) : selector,
