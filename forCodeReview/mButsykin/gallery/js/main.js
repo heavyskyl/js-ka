@@ -10,4 +10,5 @@ SandBox('gallery-module', function(A) {
     gallery.on('next image', function() {console.log(console.log('next image'));});
     gallery.on('last image', function() {console.log(console.log('last image'));});
     gallery.on('first image', function() {console.log(console.log('first image'));});
+    gallery.on('init', function() {console.log(console.log('init'));});
 });

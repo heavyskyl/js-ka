@@ -20,6 +20,8 @@ SandBox.add('gallery-module', function(A) {
             }
 
             this.handlers();
+
+            this.events.eventStarted('init');
         },
 
         on: function(ev, callback) {
