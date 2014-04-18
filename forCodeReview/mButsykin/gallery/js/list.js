@@ -28,8 +28,6 @@ SandBox.add('list-module', function(A) {
                 if(listItem.data === val){
                     return listItem;
                 }
-                if(listItem.prev === null)
-                    return false;
                 return tmp(listItem.prev);
             }
 
