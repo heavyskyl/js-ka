@@ -21,7 +21,7 @@ SandBox.add('gallery-module', function(A) {
 
             this.handlers();
 
-            this.events.eventStarted('init');
+            this.events.once('init');
         },
 
         on: function(ev, callback) {
