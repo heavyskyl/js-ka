@@ -44,13 +44,13 @@ SandBox.add('gallery-module', function(A) {
                 {
                     opacity: 0.2,
                     height: 0
-                }, 100, function() {
-                    $image.setAttribute('src', that.currentImage.data + '?' + new Date().getTime());
+                }, 300, function() {
+                    $image.setAttribute('src', that.currentImage.data);
                     A.animation($image,
                         {
                             opacity: 1,
                             height: window.innerHeight
-                        }, 500, function() {
+                        }, 300, function() {
                         that.events.eventStarted('image changed');
                     });
                 }, function(progress) { // Custom delta function!!!!!!!!!!!!!!!!!!
