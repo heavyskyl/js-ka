@@ -1,6 +1,5 @@
 SandBox.add('list-module', function(A) {
     var List = function() {
-        this.length = 0;
         this.head = null;
     };
 
@@ -12,7 +11,7 @@ SandBox.add('list-module', function(A) {
                 next: null
             };
 
-            if(this.length === 0) {
+            if(this.head === null) {
                 this.head = listItem;
                 this.head.prev = this.head;
             }
@@ -22,8 +21,6 @@ SandBox.add('list-module', function(A) {
                 this.head = listItem;
                 this.head.next = listItem;
             }
-
-            this.length++;
         },
 
         get: function(val) {
